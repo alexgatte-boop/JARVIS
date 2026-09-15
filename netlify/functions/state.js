@@ -5,6 +5,14 @@ function checkAuth(event) {
   if (!password) return true;
   return event.headers['x-jarvis-key'] === password; }
 
+function parseBody(event) {
+  let raw = event.body || '{}';
+  if (event.isBase64Encoded) {
+    raw = Buffer.from(raw, 'base64').toString('utf8');
+  }
+  return JSON.parse(raw || '{}');
+}
+
 exports.handler = async (event) => {
   if (!checkAuth(event)) {
     return { statusCode: 401, body: JSON.stringify({ error: 'unauthorized' }) };
@@ -39,12 +47,12 @@ exports.handler = async (event) => {
     }
 
     if (event.httpMethod === 'PUT') {
-      const body = JSON.parse(event.body || '{}');
+      const body = parseBody(event);
       const json = JSON.stringify(body);
       await sql`
         INSERT INTO jarvis_state (id, data, updated_at)
         VALUES (1, ${json}::jsonb, now())
-        ON CONFLICT (id) DO UPDATE SET data = https://mibc-fr-06.mailinblack.com/securelink/?url=http://EXCLUDED.data&key=eyJsYW5nIjoiRlIiLCJ1cmwiOiJodHRwOi8vRVhDTFVERUQuZGF0YSIsInRva2VuIjoiZ0FBQUFBQnFxUUwxTnRua3VDZmVNN1FOLWZfXzJkZjM0d0l0bEx3emlEcU43a2k5NFpuV3U1OGJKNlRkaXRibk9EcmRUblFTcFd6c01oNFU2OXFYbnJXUHB3NjIxSHJnYWhxdHVFX2tLbGo1NEFGTnQ2ZjVqQ2RZT2Y5U0hYRnhwTk1Xem5GYlpURGIzejJFZWRvUmFYUXBvYXZ0UnQwVDFHYTI3UE8tS0o5VEVOSkJLV1hPUjlVZmVuRUtMWjZzWXVickxmMGhGcGxRclZ2ck9qVkhzelpYR3pydDJDVUN0QWIxYkJSMnM1MmtFUUJ6bVdnUmwxbE1lclJ2cGNoeEVuRDFFRkpyVVdhQmc0THBXVmVwb2ZlOTdvYm55MlNReGJabURQV1E0cUlobmxSUzJ4Q1VQa3duWjFvaFhidEtqb2hMS3A2LW9NXzYifQ==, updated_at = now()
+        ON CONFLICT (id) DO UPDATE SET data = https://mibc-fr-06.mailinblack.com/securelink/?url=http://EXCLUDED.data&key=eyJsYW5nIjoiRlIiLCJ1cmwiOiJodHRwOi8vRVhDTFVERUQuZGF0YSIsInRva2VuIjoiZ0FBQUFBQnFxUmZISExtcUxhVDIxQ29aYXQ2Zk16cW5XQ3hObFpYMklaOTV1QlAzdGpFcUZJRzRvTVkxcnFZeFQ0WFpiLUE3bUhjSm16UEVxLWJsdlY0YldZZXpoamVOdk5EZnhDT1VQWmszZVk4VEpFMmp6YUcyVTQyZ1pfcVk1UDBtakI3dldRSUJhcTNRRnhJaHU3RG5JWXR5bFRMLUxYTF9TNlN4eUtIN2RtRmUyelU0WmxtTGNxT0VYdTRPanowM1FITWotN3NZc295Rjh3WXJFS0xFMkV4Y1RZT3VOYnFlR2tVYlR3bTJrcVhCOFppYkpkWmVfbC1xRlc0eFk0M2sya0cxbU5sck9Pb25OOC1ha1hHUE11akI2M0RLWExYUGV4cmxMODRFZjZ6R1dYZVd4ODdhRDkzQjZCUG56Ni1Pb1JCR1lsQ1YifQ==, updated_at = now()
       `;
       return { statusCode: 200, body: JSON.stringify({ ok: true }) };
     }
