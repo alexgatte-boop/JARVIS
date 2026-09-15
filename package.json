@@ -1,0 +1,9 @@
+{
+  "name": "jarvis",
+  "version": "1.0.0",
+  "private": true,
+  "description": "JARVIS — tableau de bord perso/pro avec base de données Postgres (Neon) sur Vercel",
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.2"
+  }
+}
