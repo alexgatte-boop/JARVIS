@@ -32,7 +32,7 @@ exports.handler = async (event) => {
     await sql`
       CREATE TABLE IF NOT EXISTS jarvis_state (
         id INT PRIMARY KEY DEFAULT 1,
-        data JSONB NOT NULL DEFAULT '{}'::jsonb,
+        data JSONB NOT NULL DEFAULT '{}',
         updated_at TIMESTAMPTZ DEFAULT now()
       )
     `;
@@ -40,7 +40,7 @@ exports.handler = async (event) => {
     if (event.httpMethod === 'GET') {
       const rows = await sql`SELECT data FROM jarvis_state WHERE id = 1`;
       if (rows.length === 0) {
-        await sql`INSERT INTO jarvis_state (id, data) VALUES (1, '{}'::jsonb)`;
+        await sql`INSERT INTO jarvis_state (id, data) VALUES (1, '{}')`;
         return { statusCode: 200, body: '{}' };
       }
       return { statusCode: 200, body: JSON.stringify(rows[0].data) };
@@ -51,14 +51,15 @@ exports.handler = async (event) => {
       const json = JSON.stringify(body);
       await sql`
         INSERT INTO jarvis_state (id, data, updated_at)
-        VALUES (1, ${json}::jsonb, now())
-        ON CONFLICT (id) DO UPDATE SET data = https://mibc-fr-06.mailinblack.com/securelink/?url=http://EXCLUDED.data&key=eyJsYW5nIjoiRlIiLCJ1cmwiOiJodHRwOi8vRVhDTFVERUQuZGF0YSIsInRva2VuIjoiZ0FBQUFBQnFxUmZISExtcUxhVDIxQ29aYXQ2Zk16cW5XQ3hObFpYMklaOTV1QlAzdGpFcUZJRzRvTVkxcnFZeFQ0WFpiLUE3bUhjSm16UEVxLWJsdlY0YldZZXpoamVOdk5EZnhDT1VQWmszZVk4VEpFMmp6YUcyVTQyZ1pfcVk1UDBtakI3dldRSUJhcTNRRnhJaHU3RG5JWXR5bFRMLUxYTF9TNlN4eUtIN2RtRmUyelU0WmxtTGNxT0VYdTRPanowM1FITWotN3NZc295Rjh3WXJFS0xFMkV4Y1RZT3VOYnFlR2tVYlR3bTJrcVhCOFppYkpkWmVfbC1xRlc0eFk0M2sya0cxbU5sck9Pb25OOC1ha1hHUE11akI2M0RLWExYUGV4cmxMODRFZjZ6R1dYZVd4ODdhRDkzQjZCUG56Ni1Pb1JCR1lsQ1YifQ==, updated_at = now()
+        VALUES (1, ${json}, now())
+        ON CONFLICT (id) DO UPDATE SET data = https://mibc-fr-06.mailinblack.com/securelink/?url=http://EXCLUDED.data&key=eyJsYW5nIjoiRlIiLCJ1cmwiOiJodHRwOi8vRVhDTFVERUQuZGF0YSIsInRva2VuIjoiZ0FBQUFBQnFxUjhGUVRoRE40WVN4MDJLel9WOGx4blZHQTItNTkyd29vNnZ0QXh6X0xhV3NPUTA0ZWV4dklVRG5XaDZoaWJwVEE0QkVxMUFObEViUTBwdkViSjFtLVM4ekRreDM0WG5rY0Zib3hCeW9oeGZlZU05RkpkYnBxSDBVV1FwdnFyR0pxS3BxenJKdm04dEU1SE5GV013Qnl2QmVwNHgyRC1uc1NBUjFHYmt5QldVSFc0dERTaHdDVEw2dWttRUE5VTVHWjE2NVI5RzVUMXU5Y0xGaEtibGdqSjc4UDQwVUh1TDd5c1puQ0p6VzN2bF9tZ0NpV1RybjBzRzNWRlVZZjJsbXluV2gwQ2k1ZFdZYkxlLXhpNmZkbHM1TXNuZ1hiblREZkRuMVctTWtSTU5RTU8tMld4REhBc1hoRW4zaFNXZU9QcUQifQ==, updated_at = now()
       `;
       return { statusCode: 200, body: JSON.stringify({ ok: true }) };
     }
 
     return { statusCode: 405, body: JSON.stringify({ error: 'method not allowed' }) };
   } catch (err) {
+    console.error(err);
     return {
       statusCode: 500,
       body: JSON.stringify({ error: 'database error', detail: String(err.message || err) }),
