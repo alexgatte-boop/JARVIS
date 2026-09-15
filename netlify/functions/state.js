@@ -52,7 +52,7 @@ exports.handler = async (event) => {
       await sql`
         INSERT INTO jarvis_state (id, data, updated_at)
         VALUES (1, ${json}, now())
-        ON CONFLICT (id) DO UPDATE SET data = https://mibc-fr-06.mailinblack.com/securelink/?url=http://EXCLUDED.data&key=eyJsYW5nIjoiRlIiLCJ1cmwiOiJodHRwOi8vRVhDTFVERUQuZGF0YSIsInRva2VuIjoiZ0FBQUFBQnFxUjhGUVRoRE40WVN4MDJLel9WOGx4blZHQTItNTkyd29vNnZ0QXh6X0xhV3NPUTA0ZWV4dklVRG5XaDZoaWJwVEE0QkVxMUFObEViUTBwdkViSjFtLVM4ekRreDM0WG5rY0Zib3hCeW9oeGZlZU05RkpkYnBxSDBVV1FwdnFyR0pxS3BxenJKdm04dEU1SE5GV013Qnl2QmVwNHgyRC1uc1NBUjFHYmt5QldVSFc0dERTaHdDVEw2dWttRUE5VTVHWjE2NVI5RzVUMXU5Y0xGaEtibGdqSjc4UDQwVUh1TDd5c1puQ0p6VzN2bF9tZ0NpV1RybjBzRzNWRlVZZjJsbXluV2gwQ2k1ZFdZYkxlLXhpNmZkbHM1TXNuZ1hiblREZkRuMVctTWtSTU5RTU8tMld4REhBc1hoRW4zaFNXZU9QcUQifQ==, updated_at = now()
+        ON CONFLICT (id) DO UPDATE SET data = EXCLUDED.data, updated_at = now()
       `;
       return { statusCode: 200, body: JSON.stringify({ ok: true }) };
     }
