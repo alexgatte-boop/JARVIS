@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>JARVIS</title>
+<title>JARVIS V4</title>
 
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -44,7 +44,7 @@
   *{box-sizing:border-box; margin:0; padding:0;}
   html,body{height:100%;}
   body{
-    font-family:'IBM Plex Sans', sans-serif;
+    font-family:-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
     background:var(--bg);
     color:var(--ink);
     -webkit-font-smoothing:antialiased;
@@ -54,31 +54,37 @@
   .mono{font-family:'IBM Plex Mono', monospace;}
 
   header.topbar{
-    padding:calc(env(safe-area-inset-top) + 14px) 18px 16px; background:var(--banner-bg);
-    position:sticky; top:0; z-index:20; border-radius:0 0 22px 22px;
+    padding:calc(env(safe-area-inset-top) + 18px) 18px 6px; background:var(--bg);
+    position:sticky; top:0; z-index:20;
   }
-  .brand{ display:flex; align-items:baseline; justify-content:space-between; }
-  .brand-mark{ font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.08em; color:var(--banner-ink); display:flex; align-items:center; gap:6px; font-weight:600;}
-  .brand-mark .dot{width:6px;height:6px;border-radius:50%;background:#4FAE8A; display:inline-block;}
-  .brand-date{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--banner-ink-soft);}
-  h1.title{ font-size:26px; font-weight:600; letter-spacing:-.01em; margin-top:6px; color:var(--banner-ink);}
+  .brand{ display:flex; align-items:flex-start; justify-content:space-between; }
+  .brand-mark{ font-family:-apple-system, sans-serif; font-size:13px; color:var(--ink-soft); font-weight:500;}
+  .brand-date{ font-family:-apple-system, sans-serif; font-size:13px; color:var(--ink-soft); font-weight:500;}
+  h1.title{ font-size:32px; font-weight:700; letter-spacing:-.02em; margin-top:2px; color:var(--ink);}
+  .header-add{
+    width:34px; height:34px; border-radius:50%; background:var(--line); color:#fff; border:none;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; cursor:pointer;
+    box-shadow:0 2px 8px rgba(47,143,104,.3);
+  }
+  .header-add svg{width:16px; height:16px;}
 
   nav.tabs{
     position:fixed; bottom:0; left:50%; transform:translateX(-50%);
-    width:100%; max-width:640px; background:var(--surface);
-    border-top:1px solid var(--border); border-bottom:none;
+    width:100%; max-width:640px; background:rgba(247,243,233,.82);
+    backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+    border-top:0.5px solid rgba(60,55,45,.15);
     display:flex; padding:6px 4px calc(env(safe-area-inset-bottom) + 6px);
-    box-shadow:0 -6px 18px rgba(38,34,30,.07);
     z-index:30;
   }
   nav.tabs button{
     flex:1; display:flex; flex-direction:column; align-items:center; gap:2px;
     appearance:none; border:none; background:transparent;
-    font-family:'IBM Plex Sans', sans-serif; font-weight:500;
+    font-family:-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; font-weight:500;
     color:var(--ink-soft); padding:6px 2px; white-space:nowrap; cursor:pointer;
     transition:color .15s ease;
   }
-  nav.tabs button svg{width:20px; height:20px; stroke-width:2;}
+  nav.tabs button svg{width:22px; height:22px; stroke-width:1.6;}
+  nav.tabs button.active svg{stroke-width:2;}
   nav.tabs button span{font-size:9.5px;}
   nav.tabs button.active{ color:var(--line); }
   nav.tabs button:hover:not(.active){color:var(--ink);}
@@ -112,14 +118,15 @@
   }
   .add-btn:hover{background:#0F241F;}
 
+  .group{background:var(--surface); border-radius:var(--radius); overflow:hidden; margin-bottom:9px; box-shadow:var(--shadow-sm);}
   .card{
-    background:var(--surface); border-radius:var(--radius); padding:13px 15px; margin-bottom:9px;
-    box-shadow:var(--shadow-sm); display:flex; align-items:flex-start; gap:11px;
-    transition:transform .1s ease;
+    padding:12px 15px; display:flex; align-items:flex-start; gap:11px; position:relative;
+    transition:background .1s ease;
   }
-  .card:active{transform:scale(.985);}
+  .card:active{background:rgba(60,55,45,.045);}
+  .card + .card::before{content:''; position:absolute; top:0; left:57px; right:15px; height:1px; background:var(--border);}
   .card-icon{
-    width:32px; height:32px; border-radius:10px; display:flex; align-items:center; justify-content:center;
+    width:30px; height:30px; border-radius:9px; display:flex; align-items:center; justify-content:center;
     flex-shrink:0; margin-top:1px;
   }
   .card.pro .card-icon{background:var(--wood-soft); color:var(--wood);}
@@ -150,12 +157,12 @@
   .empty{padding:26px 14px; text-align:center; color:var(--ink-soft); font-size:13px; border:1px dashed var(--border); border-radius:var(--radius);}
 
   input, select, textarea{
-    font-family:'IBM Plex Sans', sans-serif; font-size:16px; background:var(--surface);
+    font-family:-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; font-size:16px; background:var(--surface);
     border:1px solid var(--border); border-radius:8px; padding:10px 12px; color:var(--ink); outline:none; width:100%;
   }
   input:focus, select:focus, textarea:focus{border-color:var(--line);}
   .btn{
-    font-family:'IBM Plex Sans', sans-serif; font-weight:600; font-size:13.5px;
+    font-family:-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; font-weight:600; font-size:13.5px;
     background:var(--line); color:#fff; border:none; border-radius:8px; padding:10px 16px; cursor:pointer; white-space:nowrap;
   }
   .btn:hover{background:#0F241F;}
@@ -163,9 +170,10 @@
   .btn.ghost:hover{background:var(--line-soft);}
   .btn.danger{color:var(--rust); border:1px solid var(--rust-soft); background:transparent;}
 
-  .filters{display:flex; gap:6px; margin-bottom:14px; flex-wrap:wrap;}
-  .filter-chip{font-family:'IBM Plex Mono', monospace; font-size:11px; padding:5px 10px; border-radius:20px; border:1px solid var(--border); background:var(--surface); color:var(--ink-soft); cursor:pointer;}
-  .filter-chip.active{background:var(--line); border-color:var(--line); color:#fff;}
+  .filters{margin-bottom:16px;}
+  .segmented{display:flex; background:rgba(60,55,45,.08); border-radius:9px; padding:2px;}
+  .segmented button{flex:1; border:none; background:none; padding:7px 4px; font-size:13px; font-weight:500; color:var(--ink-soft); border-radius:7px; cursor:pointer;}
+  .segmented button.active{background:var(--surface); color:var(--ink); box-shadow:0 1px 2px rgba(0,0,0,.08); font-weight:600;}
 
   .project-card{background:var(--surface); border-radius:var(--radius); padding:16px; margin-bottom:10px; box-shadow:var(--shadow-sm);}
   .project-top{display:flex; justify-content:space-between; align-items:flex-start; gap:8px;}
@@ -211,7 +219,7 @@
   .modal h3{font-size:16px; margin-bottom:14px;}
   .field{margin-bottom:12px;}
   .field label{display:block; font-size:11.5px; color:var(--ink-soft); margin-bottom:5px; font-family:'IBM Plex Mono', monospace;}
-  .field textarea{resize:vertical; min-height:60px; font-family:'IBM Plex Sans', sans-serif;}
+  .field textarea{resize:vertical; min-height:60px; font-family:-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;}
   .field-row{display:flex; gap:10px;}
   .field-row .field{flex:1;}
   .modal-actions{display:flex; gap:8px; margin-top:16px;}
@@ -243,13 +251,131 @@
   }
   .install-banner button{background:none;border:none;color:var(--line);font-weight:600;cursor:pointer;font-size:12.5px; flex-shrink:0;}
   .install-banner .txt{flex:1; line-height:1.4;}
+
+/* ================= JARVIS V2 — COMMAND CENTER ================= */
+:root{
+  --v2-deep:#102A24; --v2-green:#163F35; --v2-green-2:#245449; --v2-beige:#E9E1D0;
+  --v2-ivory:#F7F5EF; --v2-copper:#C9855A; --v2-ink:#17201D; --v2-muted:#718078;
+  --v2-line:rgba(16,42,36,.12); --v2-shadow:0 18px 50px rgba(16,42,36,.10);
+}
+body{background:radial-gradient(circle at 85% -10%,rgba(201,133,90,.10),transparent 28%),linear-gradient(180deg,#f8f6f0 0%,#eee8da 100%);color:var(--v2-ink);}
+#app{max-width:1180px;margin:0 auto;padding-bottom:100px;}
+.topbar{position:relative;padding:28px 22px 16px;border-bottom:1px solid var(--v2-line);background:rgba(247,245,239,.72);backdrop-filter:blur(18px);}
+.brand-mark{letter-spacing:.22em;font-weight:800;font-size:13px;color:var(--v2-deep);}
+.title{font-size:31px!important;letter-spacing:-.04em;margin:8px 0 2px!important;color:var(--v2-deep);}
+#save-status{color:var(--v2-muted)!important;}
+.tabs{position:sticky;top:0;z-index:30;display:flex;gap:6px;padding:10px 14px;background:rgba(247,245,239,.84);backdrop-filter:blur(18px);border-bottom:1px solid var(--v2-line);overflow:auto;scrollbar-width:none;}
+.tabs button{border:0!important;background:transparent!important;color:#6b756f!important;border-radius:14px!important;padding:10px 13px!important;min-width:max-content;transition:.2s ease;}
+.tabs button.active{background:var(--v2-deep)!important;color:#fff!important;box-shadow:0 8px 20px rgba(16,42,36,.18);}
+.tabs button:hover{transform:translateY(-1px);}
+main{padding:22px;}
+.view{animation:v2fade .28s ease;}
+@keyframes v2fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.v2-hero{display:grid;grid-template-columns:1.55fr .75fr;gap:16px;margin-bottom:18px;}
+.v2-card{background:rgba(255,255,255,.70);border:1px solid var(--v2-line);border-radius:24px;box-shadow:var(--v2-shadow);padding:22px;}
+.v2-hero-main{background:linear-gradient(135deg,var(--v2-deep),#1d443a);color:white;position:relative;overflow:hidden;min-height:205px;}
+.v2-hero-main:after{content:"";position:absolute;width:230px;height:230px;border:1px solid rgba(255,255,255,.12);border-radius:50%;right:-80px;top:-80px;box-shadow:0 0 0 28px rgba(255,255,255,.025),0 0 0 58px rgba(255,255,255,.018);}
+.v2-kicker{font-size:10px;text-transform:uppercase;letter-spacing:.18em;opacity:.66;font-weight:700;}
+.v2-hero-title{font-size:27px;font-weight:750;letter-spacing:-.04em;margin:10px 0 8px;max-width:620px;position:relative;z-index:1;}
+.v2-hero-copy{font-size:13px;line-height:1.55;opacity:.82;max-width:620px;position:relative;z-index:1;}
+.v2-command{margin-top:18px;display:flex;gap:8px;position:relative;z-index:2;}
+.v2-command input{flex:1;min-width:0;border:1px solid rgba(255,255,255,.17);background:rgba(255,255,255,.08);color:white;border-radius:14px;padding:13px 14px;outline:none;}
+.v2-command input::placeholder{color:rgba(255,255,255,.56)}
+.v2-command button{border:0;border-radius:14px;background:var(--v2-beige);color:var(--v2-deep);font-weight:750;padding:0 15px;cursor:pointer;}
+.v2-status{display:flex;flex-direction:column;justify-content:space-between;}
+.v2-ring{width:78px;height:78px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--v2-copper) 0 78%,rgba(16,42,36,.08) 78% 100%);position:relative;margin-bottom:12px;}
+.v2-ring:after{content:"";position:absolute;inset:7px;border-radius:50%;background:#fff;}
+.v2-ring span{position:relative;z-index:1;font-weight:800;font-size:20px;color:var(--v2-deep)}
+.v2-status-label{font-size:12px;color:var(--v2-muted)}
+.v2-status-value{font-size:20px;font-weight:800;color:var(--v2-deep);margin-top:4px;}
+.v2-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;}
+.v2-section-title{display:flex;align-items:center;justify-content:space-between;margin:0 0 10px;}
+.v2-section-title h2{margin:0;font-size:15px;letter-spacing:-.02em;color:var(--v2-deep)}
+.v2-section-title span{font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:var(--v2-muted);}
+.v2-timeline{display:flex;flex-direction:column;gap:7px;}
+.v2-time{display:grid;grid-template-columns:58px 1fr;gap:10px;align-items:center;}
+.v2-time-label{font:11px ui-monospace,monospace;color:var(--v2-muted);text-align:right;}
+.v2-time-block{padding:10px 12px;border-radius:13px;background:#fff;border:1px solid var(--v2-line);display:flex;justify-content:space-between;gap:8px;align-items:center;}
+.v2-time-block strong{font-size:12px}.v2-time-block small{font-size:10px;color:var(--v2-muted)}
+.v2-dot{width:7px;height:7px;border-radius:50%;background:var(--v2-copper);display:inline-block;margin-right:6px;}
+.v2-mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.v2-metric{padding:14px;border:1px solid var(--v2-line);background:rgba(255,255,255,.6);border-radius:17px;}
+.v2-metric b{display:block;font-size:23px;color:var(--v2-deep)}.v2-metric span{font-size:10px;color:var(--v2-muted)}
+.v2-insight{margin-top:10px;padding:13px 14px;border-radius:15px;background:#f4efe3;border:1px solid rgba(201,133,90,.22);font-size:12px;line-height:1.45;}
+.v2-insight b{color:var(--v2-deep)}
+.v2-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:16px;}
+.v2-action{border:1px solid var(--v2-line);background:rgba(255,255,255,.72);border-radius:15px;padding:13px;text-align:left;cursor:pointer;transition:.2s;}
+.v2-action:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(16,42,36,.08)}
+.v2-action b{display:block;color:var(--v2-deep);font-size:12px}.v2-action span{font-size:10px;color:var(--v2-muted)}
+.v2-module-head{display:flex;justify-content:space-between;align-items:end;margin:4px 0 16px}.v2-module-head h2{font-size:24px;letter-spacing:-.04em;margin:0;color:var(--v2-deep)}.v2-module-head p{margin:3px 0 0;font-size:12px;color:var(--v2-muted)}
+.v2-search{width:100%;padding:14px;border:1px solid var(--v2-line);border-radius:15px;background:#fff;outline:none;margin-bottom:12px;box-sizing:border-box;}
+.v2-brain-result{display:flex;gap:12px;align-items:flex-start;padding:14px;border-bottom:1px solid var(--v2-line)}.v2-brain-result:last-child{border:0}.v2-type{font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:var(--v2-copper);font-weight:800;min-width:60px}.v2-brain-result b{font-size:13px}.v2-brain-result p{margin:4px 0 0;font-size:11px;color:var(--v2-muted)}
+.v2-pilot-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.v2-pilot{min-height:145px}.v2-pilot h3{font-size:12px;margin:0 0 10px;color:var(--v2-deep)}.v2-bar{height:7px;background:#e4e1d8;border-radius:99px;overflow:hidden;margin:10px 0}.v2-bar i{display:block;height:100%;background:var(--v2-green);border-radius:inherit}.v2-pilot big{font-size:25px;font-weight:800;color:var(--v2-deep)}
+.v2-focus-overlay{position:fixed;inset:0;z-index:100;background:rgba(16,42,36,.96);color:white;display:none;align-items:center;justify-content:center;padding:24px}.v2-focus-overlay.open{display:flex}.v2-focus-box{text-align:center;max-width:650px;width:100%}.v2-focus-box .k{font-size:10px;letter-spacing:.2em;opacity:.55;text-transform:uppercase}.v2-focus-box h2{font-size:clamp(30px,6vw,62px);letter-spacing:-.05em;margin:18px 0}.v2-focus-timer{font:700 clamp(34px,8vw,72px) ui-monospace,monospace;color:var(--v2-beige)}.v2-focus-box button{margin-top:24px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:white;padding:12px 18px;border-radius:14px;cursor:pointer}
+@media(max-width:780px){main{padding:14px}.topbar{padding:22px 15px 13px}.v2-hero,.v2-grid{grid-template-columns:1fr}.v2-actions{grid-template-columns:1fr 1fr}.v2-pilot-grid{grid-template-columns:1fr}.v2-card{border-radius:20px;padding:17px}.v2-hero-title{font-size:23px}.tabs button{padding:9px 11px!important}}
+
+
+/* ================= JARVIS V4 — SPECTACULAR LAYER ================= */
+:root{
+  --j-deep:#0C211C; --j-navy:#163F35; --j-green:#2E6A58; --j-beige:#E9E1D0; --j-ivory:#FBF9F3;
+  --j-copper:#C9855A; --j-gold:#D8B27A; --j-muted:#718078; --j-line:rgba(22,63,53,.13);
+  --j-shadow:0 18px 55px rgba(12,33,28,.10); --j-shadow2:0 8px 28px rgba(12,33,28,.08);
+}
+body{background:radial-gradient(circle at 80% -10%,rgba(201,133,90,.12),transparent 28%),linear-gradient(180deg,#F4EFE4 0%,#EAE4D5 100%);}
+#app{max-width:1440px;display:grid;grid-template-columns:248px minmax(0,1fr);min-height:100vh;background:rgba(251,249,243,.42);}
+header.topbar{position:fixed;left:0;top:0;bottom:0;width:248px;z-index:40;padding:28px 22px;background:linear-gradient(180deg,var(--j-deep),#12382F);color:#F7F2E7;border-right:1px solid rgba(255,255,255,.08);}
+header.topbar .brand{display:block}.brand-mark{color:rgba(247,242,231,.62)!important;letter-spacing:.22em;font-size:10px!important;font-weight:700!important}.brand-date{display:none!important}
+h1.title{color:#F7F2E7!important;font-size:28px!important;margin-top:7px!important;letter-spacing:-.04em!important}
+#save-status{color:rgba(247,242,231,.55)!important;margin-top:8px!important}
+nav.tabs{position:fixed;left:0;top:135px;bottom:auto;transform:none;width:248px;max-width:none;display:flex;flex-direction:column;gap:4px;padding:12px;background:transparent;border:0;backdrop-filter:none;z-index:41}
+nav.tabs button{flex:none;width:100%;height:48px;display:grid;grid-template-columns:30px 1fr;align-items:center;text-align:left;padding:0 13px!important;border:1px solid transparent;border-radius:14px;background:transparent;color:rgba(247,242,231,.62);font-size:12px;transition:.22s;}
+nav.tabs button span:first-child{font-size:17px;text-align:center}nav.tabs button span:last-child{font-weight:600}
+nav.tabs button:hover{background:rgba(255,255,255,.07);color:#fff}nav.tabs button.active{background:rgba(233,225,208,.12);border-color:rgba(233,225,208,.12);color:#fff;box-shadow:inset 3px 0 0 var(--j-copper)}
+main{grid-column:2;padding:34px 44px 70px;max-width:1280px;width:100%;margin:0 auto;}
+.view{animation:jarvisIn .32s ease both}.view.active{display:block}@keyframes jarvisIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+.v2-hero{grid-template-columns:minmax(0,1.55fr) minmax(300px,.7fr);gap:18px;margin-bottom:18px}.v2-card{border:1px solid var(--j-line);box-shadow:var(--j-shadow2);background:rgba(251,249,243,.82);backdrop-filter:blur(16px);border-radius:24px;padding:24px}
+.v2-hero-main{min-height:280px;background:linear-gradient(135deg,#102D26 0%,#17483C 58%,#1E5547 100%);color:#fff;position:relative;overflow:hidden;box-shadow:0 24px 65px rgba(12,33,28,.18)}
+.v2-hero-main:before{content:"";position:absolute;width:420px;height:420px;border-radius:50%;right:-160px;top:-190px;border:1px solid rgba(233,225,208,.18);box-shadow:0 0 0 34px rgba(233,225,208,.035),0 0 0 68px rgba(233,225,208,.025)}
+.v2-hero-main:after{content:"JARVIS";position:absolute;right:30px;bottom:-18px;font:700 88px/1 Arial,sans-serif;letter-spacing:-.08em;color:rgba(255,255,255,.035)}
+.v2-kicker{color:#D9B994!important;letter-spacing:.19em;font-size:9px!important;font-weight:800!important}.v2-hero-title{font-size:42px!important;line-height:1.02!important;max-width:720px;margin-top:18px!important;position:relative;z-index:1}.v2-hero-copy{font-size:14px!important;line-height:1.65!important;max-width:650px;color:rgba(255,255,255,.72)!important;position:relative;z-index:1}
+.v2-command{display:flex!important;max-width:700px!important;margin-top:28px!important;position:relative;z-index:2;padding:5px!important;background:rgba(255,255,255,.09)!important;border:1px solid rgba(255,255,255,.16)!important;border-radius:16px!important}.v2-command input{background:transparent!important;color:#fff!important;border:0!important;padding:13px 12px!important}.v2-command input::placeholder{color:rgba(255,255,255,.45)!important}.v2-command button{border:0!important;border-radius:12px!important;background:#E9E1D0!important;color:#163F35!important;font-weight:800!important;padding:0 17px!important}
+.v2-status{display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(145deg,#F9F5EB,#E9E1D0);min-height:280px}.v2-ring{width:108px!important;height:108px!important;border:1px solid rgba(22,63,53,.14)!important;background:conic-gradient(var(--j-copper) 0 72%,rgba(22,63,53,.08) 72% 100%)!important;box-shadow:inset 0 0 0 9px #F7F2E8,0 12px 28px rgba(12,33,28,.08)}.v2-ring span{font-size:29px!important;color:var(--j-deep)!important}.v2-status-label{font-size:9px!important;letter-spacing:.16em;color:var(--j-muted)!important;text-transform:uppercase;font-weight:800;margin-top:11px}.v2-status-value{font-size:19px!important;color:var(--j-deep)!important;font-weight:800!important}
+.v2-grid{grid-template-columns:1fr 1fr;gap:18px}.v2-section-title h2{font-size:19px!important}.v2-section-title span{font-size:8px!important;letter-spacing:.15em;color:var(--j-copper)!important;font-weight:800}.v2-metric{background:#fff!important;border:1px solid var(--j-line)!important}.v2-metric b{font-size:28px!important}.v2-insight{background:rgba(201,133,90,.07)!important;border-color:rgba(201,133,90,.18)!important}.v2-actions{grid-template-columns:repeat(4,1fr);gap:12px}.v2-action{background:rgba(251,249,243,.88)!important;border-color:var(--j-line)!important;box-shadow:var(--j-shadow2);min-height:92px}.v2-action b{font-size:12px!important}.v2-action span{display:block;margin-top:6px}.stat-row{margin-top:22px}.section-heading{margin-top:30px!important}.install-banner{border-radius:18px!important;box-shadow:var(--j-shadow2)}
+/* Executive dashboard */
+.jv3-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}.jv3-kpi{padding:17px 18px;background:rgba(251,249,243,.76);border:1px solid var(--j-line);border-radius:18px;box-shadow:var(--j-shadow2)}.jv3-kpi small{display:block;text-transform:uppercase;letter-spacing:.12em;font-size:8px;color:var(--j-muted);font-weight:800}.jv3-kpi strong{display:block;font-size:25px;color:var(--j-deep);margin-top:6px}.jv3-kpi em{font-style:normal;font-size:10px;color:var(--j-muted)}
+.jv3-command-row{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:18px;margin-top:18px}.jv3-now{min-height:240px;background:linear-gradient(145deg,#F9F5EB,#EFE8D9);border:1px solid var(--j-line);border-radius:24px;padding:22px;box-shadow:var(--j-shadow2)}.jv3-now-head{display:flex;justify-content:space-between;align-items:center}.jv3-now-label{font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--j-copper);font-weight:800}.jv3-clock{font:600 11px 'IBM Plex Mono',monospace;color:var(--j-muted)}.jv3-now-title{font-size:27px;font-weight:800;letter-spacing:-.045em;color:var(--j-deep);margin-top:30px;max-width:720px}.jv3-now-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.jv3-pill{padding:7px 10px;border-radius:999px;background:rgba(22,63,53,.07);font-size:9px;color:var(--j-green);font-weight:700}.jv3-next{border-left:2px solid rgba(201,133,90,.4);padding-left:15px;margin-top:24px;font-size:11px;color:var(--j-muted)}.jv3-radar{border-radius:24px;padding:22px;background:#102D26;color:#fff;box-shadow:0 20px 55px rgba(12,33,28,.17)}.jv3-radar h3{font-size:11px;letter-spacing:.12em}.jv3-radar p{font-size:11px;line-height:1.55;color:rgba(255,255,255,.6);margin-top:7px}.jv3-radar-item{padding:13px 0;border-bottom:1px solid rgba(255,255,255,.09);font-size:11px}.jv3-radar-item:last-child{border-bottom:0}.jv3-radar-item b{display:block;color:#F2E9D9}.jv3-radar-item span{color:rgba(255,255,255,.48);font-size:9px}
+.jv3-modules{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}.jv3-module{min-height:130px;padding:19px;border:1px solid var(--j-line);border-radius:20px;background:rgba(251,249,243,.76);box-shadow:var(--j-shadow2)}.jv3-module .ico{font-size:19px;color:var(--j-copper)}.jv3-module h3{font-size:12px;margin-top:12px;color:var(--j-deep)}.jv3-module p{font-size:10px;line-height:1.5;color:var(--j-muted);margin-top:5px}.jv3-module button{margin-top:13px;border:0;background:rgba(22,63,53,.07);color:var(--j-green);border-radius:10px;padding:7px 10px;font-size:9px;font-weight:800;cursor:pointer}
+.jv3-fab{position:fixed;right:32px;bottom:28px;width:62px;height:62px;border-radius:20px;border:1px solid rgba(255,255,255,.2);background:linear-gradient(145deg,#1A5143,#0E2C25);color:#F5EBDC;box-shadow:0 18px 42px rgba(12,33,28,.28);z-index:60;cursor:pointer;font-size:25px;transition:.2s}.jv3-fab:hover{transform:translateY(-3px) scale(1.03)}
+.jv3-modal{position:fixed;inset:0;background:rgba(7,22,18,.58);backdrop-filter:blur(14px);z-index:90;display:none;align-items:center;justify-content:center;padding:20px}.jv3-modal.open{display:flex}.jv3-modal-card{width:min(720px,100%);border:1px solid rgba(255,255,255,.13);background:#F8F4E9;border-radius:28px;padding:24px;box-shadow:0 30px 100px rgba(0,0,0,.25)}.jv3-modal-top{display:flex;justify-content:space-between;align-items:center}.jv3-modal-top h2{font-size:23px;color:var(--j-deep)}.jv3-close{border:0;background:rgba(22,63,53,.08);width:34px;height:34px;border-radius:50%;cursor:pointer}.jv3-command-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}.jv3-command-tile{border:1px solid var(--j-line);background:#fff;border-radius:17px;padding:17px;text-align:left;cursor:pointer}.jv3-command-tile b{display:block;color:var(--j-deep);font-size:11px}.jv3-command-tile span{font-size:9px;color:var(--j-muted);display:block;margin-top:5px}
+@media(max-width:900px){#app{display:block}header.topbar{position:relative;width:100%;height:auto;padding:calc(env(safe-area-inset-top) + 18px) 18px 8px;background:transparent;color:var(--ink);border:0}header.topbar .brand{display:flex}.brand-mark{color:var(--ink-soft)!important}.brand-date{display:block!important}.brand h1{} h1.title{color:var(--ink)!important}#save-status{color:var(--ink-soft)!important}nav.tabs{position:fixed;top:auto;bottom:0;left:50%;transform:translateX(-50%);width:100%;height:auto;display:flex;flex-direction:row;gap:0;padding:6px 4px calc(env(safe-area-inset-bottom) + 6px);background:rgba(247,243,233,.86);backdrop-filter:blur(22px);border-top:1px solid rgba(22,63,53,.1)}nav.tabs button{display:flex;flex-direction:column;justify-content:center;align-items:center;width:auto;height:auto;padding:8px 5px!important;text-align:center;color:var(--ink-soft);font-size:9px}nav.tabs button span:first-child{font-size:15px}.jv3-fab{right:18px;bottom:84px}main{padding:18px 16px 95px}.v2-hero,.v2-grid,.jv3-command-row{grid-template-columns:1fr}.jv3-strip{grid-template-columns:repeat(2,1fr)}.jv3-modules{grid-template-columns:1fr 1fr}.v2-actions{grid-template-columns:1fr 1fr}.v2-hero-title{font-size:31px!important}.v2-status{min-height:220px}.jv3-command-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.jv3-modules{grid-template-columns:1fr}.jv3-strip{gap:8px}.jv3-kpi{padding:14px}.jv3-kpi strong{font-size:22px}.v2-card{padding:18px}.v2-actions{gap:8px}.v2-action{min-height:80px}.jv3-now-title{font-size:23px}.jv3-command-grid{grid-template-columns:1fr}}
+
 </style>
+
+<style id="jarvis-v4-layer">
+:root{--v4-bg:#f4f0e5;--v4-panel:rgba(255,255,255,.78);--v4-green:#123d32;--v4-green2:#1d5b4b;--v4-beige:#e9dfc9;--v4-copper:#b97852;--v4-ink:#13211d;--v4-muted:#708078;--v4-line:rgba(18,61,50,.12)}
+.v4-topline{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 14px;padding:10px 14px;border:1px solid var(--v4-line);border-radius:16px;background:linear-gradient(100deg,rgba(255,255,255,.82),rgba(233,223,201,.62));backdrop-filter:blur(16px);box-shadow:0 8px 30px rgba(18,61,50,.06)}
+.v4-live{display:flex;align-items:center;gap:8px;font:700 9px/1 'IBM Plex Mono',monospace;letter-spacing:.13em;text-transform:uppercase;color:var(--v4-green)}.v4-dot{width:7px;height:7px;border-radius:50%;background:#4e9b78;box-shadow:0 0 0 5px rgba(78,155,120,.12)}
+.v4-clock{font:700 11px 'IBM Plex Mono',monospace;color:var(--v4-muted)}.v4-kbd{border:1px solid var(--v4-line);border-radius:7px;padding:4px 7px;background:#fff;font:700 9px 'IBM Plex Mono',monospace;color:var(--v4-muted)}
+.v4-pulse{animation:v4pulse 2.8s ease-in-out infinite}@keyframes v4pulse{0%,100%{box-shadow:0 0 0 0 rgba(78,155,120,.18)}50%{box-shadow:0 0 0 7px rgba(78,155,120,0)}}
+.v4-palette{position:fixed;inset:0;z-index:120;display:none;align-items:flex-start;justify-content:center;padding:11vh 18px 30px;background:rgba(7,25,20,.48);backdrop-filter:blur(18px)}.v4-palette.open{display:flex}.v4-palette-card{width:min(720px,100%);border:1px solid rgba(255,255,255,.2);border-radius:26px;background:#f8f4e9;box-shadow:0 40px 120px rgba(0,0,0,.3);overflow:hidden}.v4-palette-head{padding:16px;border-bottom:1px solid var(--v4-line)}.v4-palette-input{width:100%;border:0;outline:0;background:transparent;font-size:18px;color:var(--v4-ink)}.v4-results{padding:8px}.v4-result{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 14px;border-radius:15px;cursor:pointer}.v4-result:hover,.v4-result.active{background:rgba(18,61,50,.08)}.v4-result b{font-size:12px;color:var(--v4-ink)}.v4-result span{font-size:10px;color:var(--v4-muted)}
+.v4-insight-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 14px}.v4-insight-card{min-height:86px;padding:14px;border:1px solid var(--v4-line);border-radius:18px;background:var(--v4-panel);backdrop-filter:blur(12px)}.v4-insight-card small{display:block;font:800 8px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:var(--v4-muted);text-transform:uppercase}.v4-insight-card strong{display:block;margin-top:8px;font-size:17px;letter-spacing:-.03em;color:var(--v4-green)}.v4-insight-card p{margin:4px 0 0;font-size:10px;color:var(--v4-muted)}
+@media(max-width:700px){.v4-insight-strip{grid-template-columns:1fr 1fr}.v4-insight-card:last-child{grid-column:1/-1}.v4-kbd{display:none}.v4-topline{padding:9px 11px}}
+</style>
+
+<style id="jarvis-v5-style">
+.jv5-command-result{margin-top:12px;padding:14px 16px;border:1px solid rgba(22,51,44,.12);border-radius:16px;background:rgba(255,255,255,.72)}
+.jv5-result-title{font-weight:800;color:#16332C;margin-bottom:4px}.jv5-result-meta{font-size:12px;opacity:.68}
+.jv5-insight{display:flex;gap:12px;align-items:flex-start;padding:13px 14px;margin:8px 0;border-radius:15px;background:linear-gradient(135deg,rgba(22,51,44,.055),rgba(236,230,214,.55));border:1px solid rgba(22,51,44,.09)}
+.jv5-insight .dot{width:9px;height:9px;border-radius:50%;background:#16332C;margin-top:5px;flex:none}.jv5-insight.warn .dot{background:#B96B43}
+</style>
+
 </head>
 <body>
 <div id="app">
   <header class="topbar">
     <div class="brand">
-      <div class="brand-mark"><span class="dot"></span>JARVIS</div>
+      <div class="brand-mark">JARVIS</div>
       <div class="brand-date mono" id="today-date"></div>
     </div>
     <h1 class="title" id="greeting">Bonjour</h1>
@@ -257,38 +383,72 @@
   </header>
 
   <nav class="tabs" id="tabs">
-    <button data-view="dashboard" class="active">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
-      <span>Accueil</span>
-    </button>
-    <button data-view="planning">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-      <span>Planning</span>
-    </button>
-    <button data-view="pro">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-      <span>Pro</span>
-    </button>
-    <button data-view="perso">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      <span>Perso</span>
-    </button>
-    <button data-view="projets">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-      <span>Projets</span>
-    </button>
-    <button data-view="idees">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M15 2a5 5 0 0 0-5 5c0 1.8.6 2.8 1.5 3.8.7.7 1.2 1.5 1.4 2.2h4.2c.2-.7.7-1.5 1.4-2.2C19.4 9.8 20 8.8 20 7a5 5 0 0 0-5-5z"/></svg>
-      <span>Idées</span>
-    </button>
+    <button data-view="dashboard" class="active"><span>⌂</span><span>Accueil</span></button>
+    <button data-view="planning"><span>◷</span><span>Aujourd’hui</span></button>
+    <button data-view="pro"><span>▣</span><span>Pro</span></button>
+    <button data-view="perso"><span>○</span><span>Perso</span></button>
+    <button data-view="projets"><span>▤</span><span>Projets</span></button>
+    <button data-view="cerveau"><span>✦</span><span>Cerveau</span></button>
+    <button data-view="pilotage"><span>◈</span><span>Pilotage</span></button>
   </nav>
 
+  <button class="fab" id="fab" title="Saisie rapide">+</button>
+
   <main>
+
+<div class="v4-topline" id="v4-topline"><div class="v4-live"><i class="v4-dot v4-pulse"></i><span>JARVIS CORE · opérationnel</span></div><div style="display:flex;align-items:center;gap:10px"><span class="v4-clock" id="v4-clock">--:--:--</span><span class="v4-kbd">⌘ K</span></div></div>
+<div class="v4-insight-strip" id="v4-insight-strip"></div>
+<div class="v4-palette" id="v4-palette"><div class="v4-palette-card"><div class="v4-palette-head"><input class="v4-palette-input" id="v4-palette-input" autocomplete="off" placeholder="Que veux-tu faire ?  Ex. : ajouter une tâche, ouvrir mes projets…"></div><div class="v4-results" id="v4-results"></div></div></div>
+
     <!-- DASHBOARD -->
     <section class="view active" id="view-dashboard">
+      <div class="v2-hero">
+        <div class="v2-card v2-hero-main">
+          <div class="v2-kicker">JARVIS CORE · COMMAND CENTER</div>
+          <div class="v2-hero-title" id="v2-hero-title">Bonjour. On reprend le contrôle de la journée.</div>
+          <div class="v2-hero-copy" id="v2-hero-copy">JARVIS rassemble ton agenda, tes tâches, tes projets et tes idées pour te montrer ce qui mérite ton attention maintenant.</div>
+          <div class="v2-command"><input id="jarvis-command" placeholder="Demande quelque chose à JARVIS… ex. : ajoute une tâche pro pour demain" onkeydown="if(event.key==='Enter')jarvisCommand()"><button onclick="jarvisCommand()">Exécuter</button></div>
+        </div>
+        <div class="v2-card v2-status"><div><div class="v2-ring"><span id="v2-score">78</span></div><div class="v2-status-label">État de la journée</div><div class="v2-status-value" id="v2-status-value">Sous contrôle</div></div><div class="v2-insight" id="v2-insight"><b>JARVIS Insight</b><br>Analyse de ta charge et de tes échéances en cours…</div></div>
+      </div>
+      <div class="v2-grid">
+        <div class="v2-card"><div class="v2-section-title"><h2>Briefing du jour</h2><span>JARVIS BRIEFING</span></div><div id="v2-briefing"></div></div>
+        <div class="v2-card"><div class="v2-section-title"><h2>Maintenant & prochainement</h2><span>FLOW</span></div><div id="v2-timeline" class="v2-timeline"></div></div>
+      </div>
+      <div class="v2-actions">
+        <button class="v2-action" onclick="openCaptureModal('pro')"><b>＋ Nouvelle tâche</b><span>Capture instantanée</span></button>
+        <button class="v2-action" onclick="openCaptureModal('projet')"><b>▤ Nouveau projet</b><span>Créer un cockpit projet</span></button>
+        <button class="v2-action" onclick="jarvisFocus()"><b>◉ Mode Focus</b><span>Une tâche, zéro distraction</span></button>
+      </div>
+
       <div class="install-banner" id="install-banner">
         <span class="txt">Ajoutez JARVIS à votre écran d'accueil pour l'ouvrir comme une vraie appli.</span>
         <button onclick="showInstallInstructions()">Comment faire</button>
+      </div>
+
+      <div class="jv3-strip">
+        <div class="jv3-kpi"><small>À traiter</small><strong id="jv3-open">—</strong><em>tâches ouvertes</em></div>
+        <div class="jv3-kpi"><small>Aujourd’hui</small><strong id="jv3-today">—</strong><em>actions prévues</em></div>
+        <div class="jv3-kpi"><small>Projets</small><strong id="jv3-projects">—</strong><em>en cours</em></div>
+        <div class="jv3-kpi"><small>Attention</small><strong id="jv3-late">—</strong><em>éléments à arbitrer</em></div>
+      </div>
+      <div class="jv3-command-row">
+        <div class="jv3-now">
+          <div class="jv3-now-head"><span class="jv3-now-label">JARVIS FLOW · MAINTENANT</span><span class="jv3-clock" id="jv3-clock">--:--</span></div>
+          <div class="jv3-now-title" id="jv3-now-title">JARVIS prépare ta journée.</div>
+          <div class="jv3-now-meta" id="jv3-now-meta"></div>
+          <div class="jv3-next" id="jv3-next">Analyse de la prochaine action…</div>
+        </div>
+        <div class="jv3-radar">
+          <h3>◈ JARVIS RADAR</h3>
+          <p>Les informations qui méritent ton attention avant le reste.</p>
+          <div id="jv3-radar-list"></div>
+        </div>
+      </div>
+      <div class="jv3-modules">
+        <div class="jv3-module"><div class="ico">◷</div><h3>Planifier ma journée</h3><p>Construis automatiquement une journée réaliste autour de tes contraintes.</p><button onclick="switchView('planning')">Ouvrir le planning →</button></div>
+        <div class="jv3-module"><div class="ico">✦</div><h3>Mon cerveau</h3><p>Retrouve instantanément tâches, projets et idées au même endroit.</p><button onclick="switchView('cerveau')">Rechercher →</button></div>
+        <div class="jv3-module"><div class="ico">◉</div><h3>Focus</h3><p>JARVIS isole ta prochaine action et élimine le bruit.</p><button onclick="jarvisFocus()">Lancer le Focus →</button></div>
       </div>
 
       <div class="stat-row" id="stat-row"></div>
@@ -340,13 +500,47 @@
       <div class="add-row"><button class="add-btn" onclick="openCaptureModal('idee')">+ Ajouter</button></div>
       <div id="list-idees"></div>
     </section>
+    <!-- CERVEAU V2 -->
+    <section class="view" id="view-cerveau">
+      <div class="v2-module-head"><div><h2>Cerveau</h2><p>Tout ce que JARVIS connaît, relié et retrouvable instantanément.</p></div></div>
+      <div class="v2-card">
+        <input id="brain-search" class="v2-search" placeholder="Rechercher une tâche, un projet, une idée…" oninput="jarvisBrainSearch(this.value)">
+        <div id="brain-results"></div>
+      </div>
+    </section>
+
+    <!-- PILOTAGE V2 -->
+    <section class="view" id="view-pilotage">
+      <div class="v2-module-head"><div><h2>Pilotage</h2><p>La vision synthétique de ta charge, de tes projets et de tes priorités.</p></div></div>
+      <div class="v2-pilot-grid">
+        <div class="v2-card v2-pilot"><h3>CHARGE DU JOUR</h3><big id="pilot-load">—</big><div class="v2-bar"><i id="pilot-load-bar" style="width:0%"></i></div><small id="pilot-load-copy">Calcul en cours…</small></div>
+        <div class="v2-card v2-pilot"><h3>PROJETS ACTIFS</h3><big id="pilot-projects">—</big><div class="v2-bar"><i id="pilot-project-bar" style="width:0%"></i></div><small>Suivi de ton portefeuille actuel.</small></div>
+        <div class="v2-card v2-pilot"><h3>PRIORITÉS</h3><big id="pilot-priority">—</big><div class="v2-bar"><i id="pilot-priority-bar" style="width:0%"></i></div><small>Équilibre entre urgence et capacité.</small></div>
+      </div>
+      <div class="v2-card" style="margin-top:12px"><div class="v2-section-title"><h2>Ce que JARVIS a détecté</h2><span>INSIGHT ENGINE</span></div><div id="pilot-insights"></div></div>
+    </section>
   </main>
 
-  <button class="fab" id="fab" title="Saisie rapide">+</button>
 </div>
 
 <div class="overlay" id="overlay"><div class="modal"><div class="modal-handle"></div><div id="modal-content"></div></div></div>
 
+<button class="jv3-fab" id="jv3-fab" title="Centre de commande">✦</button>
+<div class="jv3-modal" id="jv3-command-modal">
+  <div class="jv3-modal-card">
+    <div class="jv3-modal-top"><div><div class="v2-kicker">JARVIS CAPTURE · COMMAND CENTER</div><h2>Que dois-je prendre en charge ?</h2></div><button class="jv3-close" onclick="closeJarvisCommandCenter()">×</button></div>
+    <div class="v2-command" style="background:#fff;border-color:rgba(22,63,53,.12);margin-top:18px"><input id="jv3-command-input" style="color:#17201D!important" placeholder="Ex. : ajoute une tâche pro demain à 9h" onkeydown="if(event.key==='Enter')runJv3Command()"><button onclick="runJv3Command()">Exécuter</button></div>
+    <div class="jv3-command-grid">
+      <button class="jv3-command-tile" onclick="openCaptureModal('pro');closeJarvisCommandCenter()"><b>＋ Tâche professionnelle</b><span>Une action à ne pas oublier.</span></button>
+      <button class="jv3-command-tile" onclick="openCaptureModal('perso');closeJarvisCommandCenter()"><b>＋ Tâche personnelle</b><span>Garde ta vie perso dans le système.</span></button>
+      <button class="jv3-command-tile" onclick="openCaptureModal('projet');closeJarvisCommandCenter()"><b>▤ Nouveau projet</b><span>Créer un espace de pilotage.</span></button>
+      <button class="jv3-command-tile" onclick="openCaptureModal('idee');closeJarvisCommandCenter()"><b>✦ Capturer une idée</b><span>Vide ton cerveau immédiatement.</span></button>
+      <button class="jv3-command-tile" onclick="jarvisFocus();closeJarvisCommandCenter()"><b>◉ Mode Focus</b><span>Une seule chose. Maintenant.</span></button>
+      <button class="jv3-command-tile" onclick="switchView('pilotage');closeJarvisCommandCenter()"><b>◈ Pilotage</b><span>Voir l’état global du système.</span></button>
+    </div>
+  </div>
+</div>
+<div class="v2-focus-overlay" id="v2-focus"><div class="v2-focus-box"><div class="k">JARVIS FOCUS</div><h2 id="focus-title">Aucune tâche sélectionnée</h2><div class="v2-focus-timer" id="focus-timer">25:00</div><button onclick="toggleFocusTimer()" id="focus-toggle">Démarrer</button><button onclick="closeFocus()">Quitter le focus</button></div></div>
 <script>
 let DATA = {
   tasksPro: [], tasksPerso: [], projects: [], ideas: [],
@@ -610,13 +804,13 @@ function renderTaskList(kind){
   else if(filter === 'done') filtered = list.filter(t => t.done);
   const container = document.getElementById('list-' + kind);
   container.innerHTML = filtered.length
-    ? filtered.map(t => taskCard(t, kind)).join('')
+    ? `<div class="group">${filtered.map(t => taskCard(t, kind)).join('')}</div>`
     : `<div class="empty">Rien ici pour l'instant.</div>`;
   const filtersEl = document.getElementById('filters-' + kind);
   const opts = [['active','à faire'],['done','terminées'],['all','toutes']];
-  filtersEl.innerHTML = opts.map(([key,label]) =>
-    `<button class="filter-chip${filter===key?' active':''}" onclick="setFilter('${kind}','${key}')">${label}</button>`
-  ).join('');
+  filtersEl.innerHTML = `<div class="segmented">${opts.map(([key,label]) =>
+    `<button class="${filter===key?'active':''}" onclick="setFilter('${kind}','${key}')">${label}</button>`
+  ).join('')}</div>`;
 }
 function setFilter(kind, key){ filterState[kind] = key; renderTaskList(kind); }
 
@@ -1055,8 +1249,8 @@ function renderDashboard(){
 
   document.getElementById('count-today').textContent = today.length;
   document.getElementById('count-late').textContent = late.length;
-  document.getElementById('dash-today').innerHTML = today.length ? today.map(t => taskCard(t, t.kind)).join('') : `<div class="empty">Rien de prévu aujourd'hui.</div>`;
-  document.getElementById('dash-late').innerHTML = late.length ? late.map(t => taskCard(t, t.kind)).join('') : `<div class="empty">Aucun retard, tout est sous contrôle.</div>`;
+  document.getElementById('dash-today').innerHTML = today.length ? `<div class="group">${today.map(t => taskCard(t, t.kind)).join('')}</div>` : `<div class="empty">Rien de prévu aujourd'hui.</div>`;
+  document.getElementById('dash-late').innerHTML = late.length ? `<div class="group">${late.map(t => taskCard(t, t.kind)).join('')}</div>` : `<div class="empty">Aucun retard, tout est sous contrôle.</div>`;
   document.getElementById('dash-projects').innerHTML = activeProjects.length ? activeProjects.slice(0,3).map(projectCard).join('') : `<div class="empty">Aucun projet en cours.</div>`;
   document.getElementById('dash-ideas').innerHTML = DATA.ideas.length ? DATA.ideas.slice(0,3).map(ideaCard).join('') : `<div class="empty">Aucune idée notée pour le moment.</div>`;
 }
@@ -1103,8 +1297,189 @@ document.getElementById('fab').addEventListener('click', () => {
   openCaptureModal(map[active] || 'pro');
 });
 
+
+/* ================= JARVIS V2 LOGIC ================= */
+const _jarvisOriginalRenderAll = renderAll;
+let jarvisFocusTask = null, jarvisFocusSeconds = 1500, jarvisFocusInterval = null;
+function renderAll(){ _jarvisOriginalRenderAll(); setTimeout(renderJarvisV2,0); }
+function jarvisAllItems(){
+  return [...(DATA.tasksPro||[]).map(x=>({...x,_type:'Pro',_kind:'pro'})),...(DATA.tasksPerso||[]).map(x=>({...x,_type:'Perso',_kind:'perso'})),...(DATA.projects||[]).map(x=>({...x,_type:'Projet',_kind:'projet'})),...(DATA.ideas||[]).map(x=>({...x,_type:'Idée',_kind:'idee'}))];
+}
+function jarvisOpenTasks(){return [...(DATA.tasksPro||[]),...(DATA.tasksPerso||[])].filter(t=>!t.done)}
+function jarvisTodayTasks(){return jarvisOpenTasks().filter(t=>t.due===todayStr())}
+function jarvisScore(){
+  const open=jarvisOpenTasks(), today=jarvisTodayTasks(), late=open.filter(isLate);
+  const total=Math.max(1,open.length), score=Math.max(35,Math.min(98,Math.round(88-(late.length*10)-(today.length>7?12:today.length>4?5:0))));
+  return {score,open,today,late};
+}
+function renderJarvisV2(){
+  const q=jarvisScore();
+  const jOpen=document.getElementById('jv3-open'); if(jOpen)jOpen.textContent=q.open.length;
+  const jToday=document.getElementById('jv3-today'); if(jToday)jToday.textContent=q.today.length;
+  const jProjects=document.getElementById('jv3-projects'); if(jProjects)jProjects.textContent=(DATA.projects||[]).filter(p=>p.status==='en_cours').length;
+  const jLate=document.getElementById('jv3-late'); if(jLate)jLate.textContent=q.late.length;
+  const now=new Date(); const clock=document.getElementById('jv3-clock'); if(clock)clock.textContent=now.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+  const sorted=[...q.today].sort((a,b)=>({haute:0,normale:1,basse:2}[a.priority]??1)-({haute:0,normale:1,basse:2}[b.priority]??1));
+  const nowTitle=document.getElementById('jv3-now-title'), nowMeta=document.getElementById('jv3-now-meta'), next=document.getElementById('jv3-next');
+  const current=sorted[0], following=sorted[1];
+  if(nowTitle)nowTitle.textContent=current ? current.title : (q.late.length ? 'Remettre le système sous contrôle' : 'Aucune action urgente. Profite de l’avance.');
+  if(nowMeta)nowMeta.innerHTML=current ? `<span class="jv3-pill">${escapeHtml(current.priority||'normale').toUpperCase()}</span><span class="jv3-pill">${fmtDuration(current.duration||30)}</span><span class="jv3-pill">${escapeHtml(current._kind==='pro'?'PRO':'PERSO')}</span>` : '<span class="jv3-pill">JARVIS CORE</span><span class="jv3-pill">Système calme</span>';
+  if(next)next.textContent=following ? `Ensuite · ${following.title}` : (q.late.length ? `Décision recommandée · examiner ${q.late.length} retard${q.late.length>1?'s':''}` : 'Prochaine étape · capturer, planifier ou avancer sur un projet.');
+  const radar=document.getElementById('jv3-radar-list');
+  if(radar){
+    const radarItems=[];
+    if(q.late.length)radarItems.push(`<div class="jv3-radar-item"><b>${q.late.length} retard${q.late.length>1?'s':''}</b><span>Une décision est nécessaire.</span></div>`);
+    if(q.today.length>6)radarItems.push(`<div class="jv3-radar-item"><b>Journée chargée</b><span>${q.today.length} actions prévues aujourd’hui.</span></div>`);
+    if((DATA.projects||[]).filter(p=>p.status==='en_cours').length)radarItems.push(`<div class="jv3-radar-item"><b>${(DATA.projects||[]).filter(p=>p.status==='en_cours').length} projet${(DATA.projects||[]).filter(p=>p.status==='en_cours').length>1?'s':''} actif${(DATA.projects||[]).filter(p=>p.status==='en_cours').length>1?'s':''}</b><span>Ton portefeuille reste accessible.</span></div>`);
+    if(!radarItems.length)radarItems.push('<div class="jv3-radar-item"><b>Tout est calme</b><span>Aucune alerte détectée par le moteur local.</span></div>');
+    radar.innerHTML=radarItems.slice(0,3).join('');
+  }
+  const score=document.getElementById('v2-score'); if(score)score.textContent=q.score;
+  const status=document.getElementById('v2-status-value'); if(status)status.textContent=q.late.length?'Attention requise':q.today.length>6?'Journée dense':'Sous contrôle';
+  const hero=document.getElementById('v2-hero-title'); if(hero){const h=new Date().getHours(); hero.textContent=(h<6||h>=20?'Bonsoir':'Bonjour')+', prêt pour la suite.';}
+  const copy=document.getElementById('v2-hero-copy'); if(copy)copy.textContent=q.late.length?`J’ai repéré ${q.late.length} élément${q.late.length>1?'s':''} en retard. On peut remettre le système sous contrôle.`:`Tu as ${q.today.length} tâche${q.today.length>1?'s':''} prévue${q.today.length>1?'s':''} aujourd’hui. JARVIS garde le reste en arrière-plan.`;
+  const insight=document.getElementById('v2-insight'); if(insight)insight.innerHTML=q.late.length?`<b>JARVIS Insight</b><br>${q.late.length} tâche${q.late.length>1?'s':''} en retard. Commence par la plus prioritaire.`:`<b>JARVIS Insight</b><br>Rien de critique n’est en retard. Ta priorité est de protéger les blocs importants de la journée.`;
+  renderBriefing(q); renderTimeline(q); renderPilotage(q); jarvisBrainSearch(document.getElementById('brain-search')?.value||'');
+}
+function renderBriefing(q){
+ const el=document.getElementById('v2-briefing'); if(!el)return;
+ const priority=[...q.today].sort((a,b)=>({haute:0,normale:1,basse:2}[a.priority]??1)-({haute:0,normale:1,basse:2}[b.priority]??1)).slice(0,3);
+ el.innerHTML=`<div class="v2-mini-grid"><div class="v2-metric"><b>${q.today.length}</b><span>à traiter aujourd’hui</span></div><div class="v2-metric"><b>${q.late.length}</b><span>en retard</span></div></div><div class="v2-insight"><b>Top priorités</b><br>${priority.length?priority.map(t=>'• '+escapeHtml(t.title)).join('<br>'):'Aucune priorité urgente détectée.'}</div>`;
+}
+function renderTimeline(q){
+ const el=document.getElementById('v2-timeline'); if(!el)return;
+ const list=[...q.today].sort((a,b)=>({haute:0,normale:1,basse:2}[a.priority]??1)-({haute:0,normale:1,basse:2}[b.priority]??1)).slice(0,4);
+ el.innerHTML=list.length?list.map(t=>`<div class="v2-time"><div class="v2-time-label">${escapeHtml(t.due||'—')}</div><div class="v2-time-block"><div><strong><span class="v2-dot"></span>${escapeHtml(t.title)}</strong><br><small>${escapeHtml(t._kind==='pro'?'PRO':'PERSO')} · ${fmtDuration(t.duration||30)}</small></div></div></div>`).join(''):'<div class="empty">Aucune tâche prévue aujourd’hui.</div>';
+}
+function renderPilotage(q){
+ const load=q.today.reduce((n,t)=>n+(t.duration||30),0), capacity=(timeToMin(DATA.settings.workEnd)-timeToMin(DATA.settings.workStart))-(DATA.settings.useLunch?(timeToMin(DATA.settings.lunchEnd)-timeToMin(DATA.settings.lunchStart)):0);
+ const pct=Math.min(100,Math.round(load/Math.max(1,capacity)*100));
+ const lp=document.getElementById('pilot-load'); if(lp)lp.textContent=pct+'%'; const lb=document.getElementById('pilot-load-bar');if(lb)lb.style.width=pct+'%'; const lc=document.getElementById('pilot-load-copy');if(lc)lc.textContent=`${fmtDuration(load)} planifiées sur ${fmtDuration(capacity)} de capacité de travail.`;
+ const projects=(DATA.projects||[]).filter(p=>p.status==='en_cours'); const pp=document.getElementById('pilot-projects');if(pp)pp.textContent=projects.length;const pb=document.getElementById('pilot-project-bar');if(pb)pb.style.width=Math.min(100,projects.length*20)+'%';
+ const hi=q.today.filter(t=>t.priority==='haute').length; const pr=document.getElementById('pilot-priority');if(pr)pr.textContent=hi; const prb=document.getElementById('pilot-priority-bar');if(prb)prb.style.width=Math.min(100,hi*25)+'%';
+ const ins=document.getElementById('pilot-insights');if(ins)ins.innerHTML=`<div class="v2-insight"><b>Charge</b><br>${pct>90?'Ta journée dépasse presque toute ta capacité théorique. Pense à déplacer ou déléguer une tâche.':pct>70?'La charge est soutenue. Protège les tâches prioritaires et garde une marge.':'La charge reste compatible avec ta capacité théorique.'}</div>${q.late.length?`<div class="v2-insight"><b>Retards</b><br>${q.late.length} élément${q.late.length>1?'s':''} mérite${q.late.length>1?'nt':''} une décision : faire, déplacer, déléguer ou supprimer.</div>`:''}`;
+}
+function jarvisBrainSearch(value){
+ const el=document.getElementById('brain-results');if(!el)return;const q=(value||'').trim().toLowerCase();let items=jarvisAllItems();if(q)items=items.filter(x=>(x.title||x.name||'').toLowerCase().includes(q)||(x.description||x.notes||'').toLowerCase().includes(q));items=items.slice(0,30);
+ el.innerHTML=items.length?items.map(x=>`<div class="v2-brain-result"><div class="v2-type">${x._type}</div><div><b>${escapeHtml(x.title||x.name||'Sans titre')}</b><p>${escapeHtml(x.description||x.notes||x.due||x.status||'Élément JARVIS')}</p></div></div>`).join(''):'<div class="empty">Aucun élément trouvé.</div>';
+}
+function jarvisCommand(){
+ const input=document.getElementById('jarvis-command'), text=(input?.value||'').trim();if(!text)return;
+ const lower=text.toLowerCase();
+ if(/mode focus|focus/.test(lower)){jarvisFocus();input.value='';return;}
+ if(/idée|idee/.test(lower)){openCaptureModal('idee');input.value='';return;}
+ if(/projet/.test(lower)){openCaptureModal('projet');input.value='';return;}
+ const due=lower.includes('demain')?new Date(Date.now()+86400000).toISOString().slice(0,10):lower.includes("aujourd")?todayStr():'';
+ const clean=text.replace(/^jarvis[,: ]*/i,'').replace(/demain|aujourd’hui|aujourd'hui/gi,'').trim();
+ DATA.tasksPro.push({id:uid(),title:clean||'Nouvelle tâche JARVIS',done:false,due,priority:'normale',duration:30,createdAt:Date.now()});saveData();renderAll();input.value='';
+}
+function jarvisFocus(){
+ const q=jarvisTodayTasks().sort((a,b)=>({haute:0,normale:1,basse:2}[a.priority]??1)-({haute:0,normale:1,basse:2}[b.priority]??1));
+ jarvisFocusTask=q[0]||jarvisOpenTasks()[0]; if(!jarvisFocusTask){alert('Aucune tâche ouverte à passer en Focus.');return;}
+ document.getElementById('focus-title').textContent=jarvisFocusTask.title;jarvisFocusSeconds=Math.min(3600,Math.max(300,(jarvisFocusTask.duration||30)*60));updateFocusTimer();document.getElementById('v2-focus').classList.add('open');
+}
+function updateFocusTimer(){const m=Math.floor(jarvisFocusSeconds/60),s=jarvisFocusSeconds%60;document.getElementById('focus-timer').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;}
+function toggleFocusTimer(){const btn=document.getElementById('focus-toggle');if(jarvisFocusInterval){clearInterval(jarvisFocusInterval);jarvisFocusInterval=null;btn.textContent='Reprendre';return;}btn.textContent='Pause';jarvisFocusInterval=setInterval(()=>{jarvisFocusSeconds--;updateFocusTimer();if(jarvisFocusSeconds<=0){clearInterval(jarvisFocusInterval);jarvisFocusInterval=null;btn.textContent='Terminé';if(jarvisFocusTask){jarvisFocusTask.done=true;saveData();renderAll();}}},1000);}
+function closeFocus(){if(jarvisFocusInterval)clearInterval(jarvisFocusInterval);jarvisFocusInterval=null;document.getElementById('v2-focus').classList.remove('open');}
+
+
+function openJarvisCommandCenter(){document.getElementById('jv3-command-modal')?.classList.add('open');setTimeout(()=>document.getElementById('jv3-command-input')?.focus(),60)}
+function closeJarvisCommandCenter(){document.getElementById('jv3-command-modal')?.classList.remove('open')}
+function runJv3Command(){const el=document.getElementById('jv3-command-input');const v=(el?.value||'').trim();if(!v)return;document.getElementById('jarvis-command').value=v;jarvisCommand();el.value='';closeJarvisCommandCenter()}
+function switchView(view){const btn=document.querySelector(`#tabs button[data-view="${view}"]`);if(btn)btn.click()}
+document.getElementById('jv3-fab')?.addEventListener('click',openJarvisCommandCenter);
+document.getElementById('jv3-command-modal')?.addEventListener('click',e=>{if(e.target.id==='jv3-command-modal')closeJarvisCommandCenter()});
+document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openJarvisCommandCenter()}if(e.key==='Escape')closeJarvisCommandCenter()});
+setInterval(()=>{const el=document.getElementById('jv3-clock');if(el){const d=new Date();el.textContent=d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});}},30000);
+
 renderHeader();
 loadData();
+</script>
+
+<script id="jarvis-v4-engine">
+(function(){
+ const palette=document.getElementById('v4-palette'), input=document.getElementById('v4-palette-input'), results=document.getElementById('v4-results');
+ const actions=[
+  ['Ajouter une tâche professionnelle','pro','openCaptureModal(\'pro\')'],
+  ['Ajouter une tâche personnelle','perso','openCaptureModal(\'perso\')'],
+  ['Créer un projet','projet','openCaptureModal(\'projet\')'],
+  ['Capturer une idée','idee','openCaptureModal(\'idee\')'],
+  ['Planifier ma journée','planning','switchView(\'planning\')'],
+  ['Ouvrir mes projets','projects','switchView(\'projets\')'],
+  ['Ouvrir le cerveau','brain','switchView(\'cerveau\')'],
+  ['Lancer le Focus','focus','jarvisFocus()']
+ ];
+ function esc(v){return String(v).replace(/[&<>\"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[m]))}
+ function renderActions(q=''){
+   const x=q.trim().toLowerCase(); const list=actions.filter(a=>!x||a[0].toLowerCase().includes(x)||a[1].includes(x));
+   results.innerHTML=list.map((a,i)=>`<div class="v4-result ${i===0?'active':''}" data-i="${i}"><b>${esc(a[0])}</b><span>${i===0?'Entrée':''}</span></div>`).join('')||'<div style="padding:18px;color:var(--v4-muted);font-size:11px">Aucune action trouvée.</div>';
+   results.querySelectorAll('.v4-result').forEach(el=>el.onclick=()=>{const a=list[Number(el.dataset.i)];if(a){close();try{new Function(a[2])()}catch(e){console.error(e)}}});
+ }
+ function open(){palette.classList.add('open');input.value='';renderActions();setTimeout(()=>input.focus(),30)}
+ function close(){palette.classList.remove('open')}
+ window.openV4Palette=open; window.closeV4Palette=close;
+ document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();palette.classList.contains('open')?close():open()} if(e.key==='Escape')close(); if(palette.classList.contains('open')&&e.key==='Enter'){const a=results.querySelector('.v4-result.active');if(a)a.click()}});
+ input.addEventListener('input',()=>renderActions(input.value)); palette.addEventListener('click',e=>{if(e.target===palette)close()});
+ function refresh(){
+   const all=[...(window.DATA?.tasksPro||[]),...(window.DATA?.tasksPerso||[])]; const open=all.filter(t=>!t.done); const late=open.filter(t=>{if(!t.due)return false;return new Date(t.due+'T23:59:59')<new Date()}); const today=open.filter(t=>typeof isToday==='function'&&isToday(t));
+   const load=today.reduce((n,t)=>n+(Number(t.duration)||30),0); const cap=typeof timeToMin==='function'?(timeToMin(DATA.settings.workEnd)-timeToMin(DATA.settings.workStart))-(DATA.settings.useLunch?(timeToMin(DATA.settings.lunchEnd)-timeToMin(DATA.settings.lunchStart)):0):480; const pct=Math.round(load/Math.max(1,cap)*100);
+   const strip=document.getElementById('v4-insight-strip'); if(!strip)return;
+   strip.innerHTML=`<div class="v4-insight-card"><small>Charge aujourd’hui</small><strong>${pct}%</strong><p>${today.length} tâche${today.length>1?'s':''} planifiée${today.length>1?'s':''}</p></div><div class="v4-insight-card"><small>À surveiller</small><strong>${late.length}</strong><p>${late.length?'élément(s) en retard':'aucun retard détecté'}</p></div><div class="v4-insight-card"><small>Projets actifs</small><strong>${(window.DATA?.projects||[]).filter(p=>p.status==='en_cours').length}</strong><p>portefeuille en cours</p></div>`;
+ }
+ function tick(){const d=new Date();const e=document.getElementById('v4-clock');if(e)e.textContent=d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});}
+ setInterval(tick,1000);setTimeout(refresh,500);setInterval(refresh,5000);
+ window.addEventListener('load',()=>setTimeout(refresh,700));
+})();
+
+/* JARVIS V5 — Intelligence layer */
+(function(){
+  const V5={
+    ensure(){DATA.meta=DATA.meta||{};DATA.activity=Array.isArray(DATA.activity)?DATA.activity:[]},
+    log(action,payload={}){this.ensure();DATA.activity.push({id:uid(),at:Date.now(),action,payload});if(DATA.activity.length>250)DATA.activity=DATA.activity.slice(-250)},
+    all(){return [...(DATA.tasksPro||[]).map(x=>({...x,_type:'Pro',_kind:'pro'})),...(DATA.tasksPerso||[]).map(x=>({...x,_type:'Perso',_kind:'perso'})),...(DATA.projects||[]).map(x=>({...x,_type:'Projet',_kind:'projet'})),...(DATA.ideas||[]).map(x=>({...x,_type:'Idée',_kind:'idee'}))]},
+    open(){return this.all().filter(x=>(x._kind==='pro'||x._kind==='perso')&&!x.done)},
+    normalize(s){return(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')},
+    parse(text){
+      const n=this.normalize(text), raw=text.trim();let kind=/\b(perso|personnelle|personnel|maison|famille)\b/.test(n)?'perso':'pro';
+      if(/\b(idee|inspiration|note)\b/.test(n))kind='idee';if(/\b(projet)\b/.test(n))kind='projet';
+      let due='';const d=new Date();
+      if(/\bdemain\b/.test(n)){d.setDate(d.getDate()+1);due=d.toISOString().slice(0,10)}else if(/\baujourd/.test(n))due=todayStr();
+      const priority=/\b(urgent|urgente|haute|important|priorite)\b/.test(n)?'haute':/\bbasse\b/.test(n)?'basse':'normale';
+      const dm=n.match(/\b(\d+)\s*(?:min|minutes?)\b/), tm=n.match(/\b(?:a|à)\s*(\d{1,2})(?::(\d{2}))?\b/);
+      const title=raw.replace(/^(?:jarvis[,:]?\s*)/i,'').replace(/\b(?:demain|aujourd['’]?hui)\b/ig,'').replace(/\b\d+\s*(?:min|minutes?)\b/ig,'').replace(/\b(?:a|à)\s*\d{1,2}(?::\d{2})?\b/ig,'').trim()||'Nouvelle tâche JARVIS';
+      return{kind,due,priority,duration:dm?Math.max(5,+dm[1]):30,time:tm?String(tm[1]).padStart(2,'0')+':'+(tm[2]||'00'):'',title}
+    },
+    command(text){
+      const n=this.normalize(text), p=this.parse(text);
+      if(/\b(recherche|cherche|trouve|rappelle-moi)\b/.test(n)){this.search(text.replace(/^(?:jarvis[,:]?\s*)?(?:recherche|cherche|trouve|rappelle-moi)\s*/i,''));return}
+      if(p.kind==='idee'){DATA.ideas.push({id:uid(),title:p.title,notes:'',createdAt:Date.now()});this.log('idea.created',{title:p.title});this.feedback('Idée capturée',p.title)}
+      else if(p.kind==='projet'){DATA.projects.push({id:uid(),name:p.title,status:'en_cours',createdAt:Date.now()});this.log('project.created',{name:p.title});this.feedback('Projet créé',p.title)}
+      else{const t={id:uid(),title:p.title,done:false,due:p.due,priority:p.priority,duration:p.duration,createdAt:Date.now()};if(p.time)t.time=p.time;(p.kind==='perso'?DATA.tasksPerso:DATA.tasksPro).push(t);this.log('task.created',{title:p.title,kind:p.kind,due:p.due});this.feedback('Tâche ajoutée',`${p.kind==='perso'?'Perso':'Pro'} · ${p.title}`)}
+      saveData();renderAll()
+    },
+    search(q){
+      const n=this.normalize(q),items=this.all().filter(x=>this.normalize(x.title||x.name||'').includes(n)||this.normalize(x.description||x.notes||'').includes(n)).slice(0,12),box=document.getElementById('jv5-command-feedback');
+      if(box)box.innerHTML=items.length?'<div class="jv5-command-result">'+items.map(x=>`<div class="jv5-insight"><div class="dot"></div><div><div class="jv5-result-title">${escapeHtml(x.title||x.name||'Sans titre')}</div><div class="jv5-result-meta">${x._type} · ${x.due||x.status||'Sans échéance'}</div></div></div>`).join('')+'</div>':'<div class="jv5-command-result"><div class="jv5-result-title">Aucun résultat</div><div class="jv5-result-meta">Essaie un mot-clé, un projet ou une idée.</div></div>';
+      this.log('search',{q})
+    },
+    feedback(title,meta){const b=document.getElementById('jv5-command-feedback');if(b)b.innerHTML=`<div class="jv5-command-result"><div class="jv5-result-title">✓ ${escapeHtml(title)}</div><div class="jv5-result-meta">${escapeHtml(meta)}</div></div>`},
+    insights(){
+      const open=this.open(),today=open.filter(x=>x.due===todayStr()),late=open.filter(x=>isLate(x)),out=[];
+      if(late.length)out.push({w:1,t:`${late.length} tâche${late.length>1?'s':''} en retard`,d:'Décide : faire, déplacer, déléguer ou supprimer.'});
+      const load=today.reduce((s,x)=>s+(+x.duration||30),0),cap=(timeToMin(DATA.settings.workEnd||'18:00')-timeToMin(DATA.settings.workStart||'08:00'))-(DATA.settings.useLunch?(timeToMin(DATA.settings.lunchEnd||'13:30')-timeToMin(DATA.settings.lunchStart||'12:00')):0);
+      if(load>cap*.9)out.push({w:1,t:'Journée presque saturée',d:`${Math.round(load/60*10)/10} h planifiées sur ${Math.round(cap/60*10)/10} h.`});
+      else if(today.length>=5)out.push({t:'Journée dense',d:`${today.length} tâches prévues aujourd’hui. Garde une marge.`});
+      return out
+    }
+  };
+  window.JARVIS=V5;V5.ensure();
+  window.jarvisCommand=function(){const i=document.getElementById('jarvis-command'),v=(i?.value||'').trim();if(v){V5.command(v);i.value=''}};
+  window.runJv3Command=function(){const i=document.getElementById('jv3-command-input'),v=(i?.value||'').trim();if(v){V5.command(v);i.value=''}};
+  const baseRender=window.renderAll;
+  window.renderAll=function(){baseRender();const box=document.getElementById('pilot-insights'),ins=V5.insights();if(box&&ins.length)box.innerHTML=ins.map(i=>`<div class="jv5-insight ${i.w?'warn':''}"><div class="dot"></div><div><b>${escapeHtml(i.t)}</b><br><span>${escapeHtml(i.d)}</span></div></div>`).join('')};
+  document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();if(typeof openJarvisCommandCenter==='function')openJarvisCommandCenter()}});
+})();
+
 </script>
 </body>
 </html>
