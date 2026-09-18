@@ -1255,7 +1255,7 @@ function renderDashboard(){
   document.getElementById('dash-ideas').innerHTML = DATA.ideas.length ? DATA.ideas.slice(0,3).map(ideaCard).join('') : `<div class="empty">Aucune idée notée pour le moment.</div>`;
 }
 
-function renderAll(){
+function renderAllCore(){
   renderDashboard();
   renderPlanning();
   renderTaskList('pro');
@@ -1299,9 +1299,8 @@ document.getElementById('fab').addEventListener('click', () => {
 
 
 /* ================= JARVIS V2 LOGIC ================= */
-const _jarvisOriginalRenderAll = renderAll;
 let jarvisFocusTask = null, jarvisFocusSeconds = 1500, jarvisFocusInterval = null;
-function renderAll(){ _jarvisOriginalRenderAll(); setTimeout(renderJarvisV2,0); }
+function renderAll(){ renderAllCore(); setTimeout(renderJarvisV2,0); }
 function jarvisAllItems(){
   return [...(DATA.tasksPro||[]).map(x=>({...x,_type:'Pro',_kind:'pro'})),...(DATA.tasksPerso||[]).map(x=>({...x,_type:'Perso',_kind:'perso'})),...(DATA.projects||[]).map(x=>({...x,_type:'Projet',_kind:'projet'})),...(DATA.ideas||[]).map(x=>({...x,_type:'Idée',_kind:'idee'}))];
 }
