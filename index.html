@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>JARVIS V4</title>
+<meta name="robots" content="noindex,nofollow">
 
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -350,6 +351,384 @@ main{grid-column:2;padding:34px 44px 70px;max-width:1280px;width:100%;margin:0 a
 @media(max-width:900px){#app{display:block}header.topbar{position:relative;width:100%;height:auto;padding:calc(env(safe-area-inset-top) + 18px) 18px 8px;background:transparent;color:var(--ink);border:0}header.topbar .brand{display:flex}.brand-mark{color:var(--ink-soft)!important}.brand-date{display:block!important}.brand h1{} h1.title{color:var(--ink)!important}#save-status{color:var(--ink-soft)!important}nav.tabs{position:fixed;top:auto;bottom:0;left:50%;transform:translateX(-50%);width:100%;height:auto;display:flex;flex-direction:row;gap:0;padding:6px 4px calc(env(safe-area-inset-bottom) + 6px);background:rgba(247,243,233,.86);backdrop-filter:blur(22px);border-top:1px solid rgba(22,63,53,.1)}nav.tabs button{display:flex;flex-direction:column;justify-content:center;align-items:center;width:auto;height:auto;padding:8px 5px!important;text-align:center;color:var(--ink-soft);font-size:9px}nav.tabs button span:first-child{font-size:15px}.jv3-fab{right:18px;bottom:84px}main{padding:18px 16px 95px}.v2-hero,.v2-grid,.jv3-command-row{grid-template-columns:1fr}.jv3-strip{grid-template-columns:repeat(2,1fr)}.jv3-modules{grid-template-columns:1fr 1fr}.v2-actions{grid-template-columns:1fr 1fr}.v2-hero-title{font-size:31px!important}.v2-status{min-height:220px}.jv3-command-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.jv3-modules{grid-template-columns:1fr}.jv3-strip{gap:8px}.jv3-kpi{padding:14px}.jv3-kpi strong{font-size:22px}.v2-card{padding:18px}.v2-actions{gap:8px}.v2-action{min-height:80px}.jv3-now-title{font-size:23px}.jv3-command-grid{grid-template-columns:1fr}}
 
+
+/* =========================================================
+   JARVIS V9 — PERSONAL OS DESIGN SYSTEM
+   ========================================================= */
+:root{
+  --v9-max:1480px;
+  --v9-sidebar:248px;
+  --v9-header:72px;
+  --v9-bottom:76px;
+  --v9-radius-xl:24px;
+  --v9-radius-lg:18px;
+  --v9-radius-md:14px;
+  --v9-shadow:0 12px 35px rgba(22,34,30,.07);
+  --v9-shadow-hover:0 18px 44px rgba(22,34,30,.11);
+}
+html{scroll-behavior:smooth;}
+body{
+  background:
+    radial-gradient(circle at 15% -10%, rgba(47,143,104,.09), transparent 28%),
+    radial-gradient(circle at 100% 10%, rgba(180,145,91,.07), transparent 25%),
+    var(--bg,#f4f1ea);
+}
+body:before{
+  content:"";
+  position:fixed; inset:0; pointer-events:none; z-index:-1;
+  background:linear-gradient(180deg,rgba(255,255,255,.22),transparent 28%);
+}
+.app-shell{min-height:100vh;}
+.main{max-width:var(--v9-max); margin:0 auto; padding-left:20px; padding-right:20px;}
+
+header{
+  position:sticky; top:0; z-index:50;
+  backdrop-filter:blur(18px) saturate(140%);
+  -webkit-backdrop-filter:blur(18px) saturate(140%);
+  background:rgba(244,241,234,.82)!important;
+  border-bottom:1px solid rgba(31,42,37,.08);
+}
+header .header-inner{
+  min-height:var(--v9-header);
+  display:flex; align-items:center; justify-content:space-between; gap:18px;
+}
+header .title{letter-spacing:-.035em;}
+header .title:after{
+  content:" PERSONAL OS";
+  font-family:'IBM Plex Mono',monospace;
+  font-size:8px; letter-spacing:.16em; vertical-align:middle;
+  color:var(--line,#2f8f68); margin-left:8px; opacity:.8;
+}
+
+.tabs{
+  position:sticky; top:var(--v9-header); z-index:45;
+  max-width:var(--v9-max); margin:0 auto;
+  padding:10px 20px;
+  display:flex; gap:6px; overflow:auto; scrollbar-width:none;
+  background:rgba(244,241,234,.78)!important;
+  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(31,42,37,.06);
+}
+.tabs::-webkit-scrollbar{display:none;}
+.tabs button{
+  flex:0 0 auto!important;
+  min-height:42px; padding:9px 14px!important;
+  border-radius:13px!important;
+  border:1px solid transparent!important;
+  transition:.18s ease!important;
+  font-weight:600!important;
+}
+.tabs button:hover{background:rgba(47,143,104,.07)!important;}
+.tabs button.active{
+  background:var(--surface,#fff)!important;
+  border-color:rgba(47,143,104,.18)!important;
+  color:var(--line,#2f8f68)!important;
+  box-shadow:0 4px 16px rgba(30,50,43,.07)!important;
+}
+.tabs button span:first-child{font-size:15px;}
+
+.view{
+  animation:v9In .28s ease both;
+}
+@keyframes v9In{
+  from{opacity:0; transform:translateY(5px)}
+  to{opacity:1; transform:none}
+}
+
+.card,.project-card,.idea-card,.group,.stat-chip,.jv3-strip,.v2-action,
+.install-banner,.overflow-box{
+  border:1px solid rgba(31,42,37,.07)!important;
+  box-shadow:var(--v9-shadow)!important;
+}
+.card:hover,.project-card:hover,.idea-card:hover,.v2-action:hover{
+  box-shadow:var(--v9-shadow-hover)!important;
+  transform:translateY(-1px);
+}
+.card,.project-card,.idea-card,.stat-chip,.v2-action{
+  transition:box-shadow .18s ease,transform .18s ease,border-color .18s ease;
+}
+
+.section-heading{margin-top:28px!important;}
+.section-heading h2{
+  font-size:13px!important;
+  text-transform:uppercase;
+  letter-spacing:.09em;
+  font-family:'IBM Plex Mono',monospace;
+}
+.section-heading .count{font-size:10px;}
+
+.add-btn,.btn{
+  min-height:42px;
+  box-shadow:0 5px 16px rgba(31,42,37,.10);
+}
+.add-btn{border-radius:13px!important;}
+.btn{border-radius:12px!important;}
+
+input,select,textarea{
+  border-radius:12px!important;
+  border-color:rgba(31,42,37,.12)!important;
+  background:rgba(255,255,255,.72)!important;
+}
+input:focus,select:focus,textarea:focus{
+  box-shadow:0 0 0 4px rgba(47,143,104,.10);
+}
+
+.jv9-command{
+  display:grid;
+  grid-template-columns:minmax(0,1.7fr) minmax(260px,.8fr);
+  gap:14px; margin:0 0 18px;
+}
+.jv9-hero{
+  position:relative; overflow:hidden;
+  padding:22px;
+  border-radius:var(--v9-radius-xl);
+  color:#fff;
+  background:
+    radial-gradient(circle at 90% 0%,rgba(255,255,255,.14),transparent 28%),
+    linear-gradient(135deg,#173b31,#245f4c 65%,#2f8f68);
+  box-shadow:0 16px 42px rgba(23,59,49,.20);
+}
+.jv9-hero:after{
+  content:""; position:absolute; width:180px;height:180px;border-radius:50%;
+  right:-70px;bottom:-90px;background:rgba(255,255,255,.06);
+}
+.jv9-kicker{
+  font-family:'IBM Plex Mono',monospace;font-size:10px;
+  letter-spacing:.14em;text-transform:uppercase;opacity:.7;
+}
+.jv9-now{
+  font-size:clamp(24px,3vw,38px); line-height:1.05;
+  letter-spacing:-.045em;font-weight:700;margin:8px 0;
+  max-width:720px;
+}
+.jv9-sub{font-size:13px;line-height:1.5;opacity:.78;max-width:650px;}
+.jv9-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px;}
+.jv9-actions button{
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(255,255,255,.10);color:#fff;
+  border-radius:12px;padding:9px 12px;font-weight:650;cursor:pointer;
+  backdrop-filter:blur(8px);
+}
+.jv9-actions button.primary{background:#fff;color:#173b31;}
+.jv9-status{
+  padding:18px;border-radius:var(--v9-radius-xl);
+  background:var(--surface,#fff);box-shadow:var(--v9-shadow);
+  border:1px solid rgba(31,42,37,.07);
+}
+.jv9-status-head{display:flex;justify-content:space-between;gap:10px;align-items:center;}
+.jv9-status-title{font-weight:700;}
+.jv9-score{
+  width:62px;height:62px;border-radius:50%;
+  display:grid;place-items:center;
+  border:7px solid var(--line-soft,#dceee6);
+  color:var(--line,#2f8f68);font-family:'IBM Plex Mono',monospace;
+  font-size:17px;font-weight:700;
+}
+.jv9-mini-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:15px;}
+.jv9-mini{
+  padding:10px;border-radius:12px;background:var(--surface-2,#f1eee7);
+}
+.jv9-mini b{display:block;font-size:18px;}
+.jv9-mini span{font-size:10px;color:var(--ink-soft);}
+
+.jv9-quick{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px;
+}
+.jv9-quick button{
+  border:1px solid rgba(31,42,37,.07);background:var(--surface,#fff);
+  padding:13px;text-align:left;border-radius:16px;cursor:pointer;
+  box-shadow:var(--v9-shadow);transition:.18s ease;
+}
+.jv9-quick button:hover{transform:translateY(-2px);box-shadow:var(--v9-shadow-hover);}
+.jv9-quick strong{display:block;font-size:13px;}
+.jv9-quick span{display:block;margin-top:3px;font-size:10.5px;color:var(--ink-soft);}
+
+.jv9-density{
+  display:grid;grid-template-columns:minmax(0,1.4fr) minmax(280px,.6fr);
+  gap:14px;
+}
+.jv9-panel{
+  background:var(--surface,#fff);
+  border:1px solid rgba(31,42,37,.07);
+  border-radius:var(--v9-radius-xl);
+  padding:18px;
+  box-shadow:var(--v9-shadow);
+}
+.jv9-panel h3{
+  margin:0 0 12px;font-size:12px;text-transform:uppercase;
+  letter-spacing:.09em;font-family:'IBM Plex Mono',monospace;
+}
+.jv9-list{display:flex;flex-direction:column;gap:8px;}
+.jv9-list-row{
+  display:flex;align-items:center;gap:10px;padding:10px 0;
+  border-bottom:1px solid var(--border,#e5e0d6);
+}
+.jv9-list-row:last-child{border-bottom:0;}
+.jv9-dot{width:8px;height:8px;border-radius:50%;background:var(--line,#2f8f68);flex-shrink:0;}
+.jv9-list-main{min-width:0;flex:1;}
+.jv9-list-main b{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.jv9-list-main span{display:block;font-size:10.5px;color:var(--ink-soft);margin-top:2px;}
+.jv9-badge{
+  font-family:'IBM Plex Mono',monospace;font-size:9px;
+  padding:4px 7px;border-radius:8px;background:var(--surface-2,#f1eee7);
+}
+.jv9-badge.alert{background:var(--rust-soft,#f8e5df);color:var(--rust,#a34c38);}
+
+.fab{
+  width:58px!important;height:58px!important;
+  box-shadow:0 10px 30px rgba(47,143,104,.32)!important;
+  border:3px solid rgba(255,255,255,.75)!important;
+}
+
+@media(min-width:1100px){
+  body{padding-bottom:20px;}
+  .main{padding-left:28px;padding-right:28px;}
+  .tabs{justify-content:flex-start;padding-left:28px;padding-right:28px;}
+  .tabs button{min-width:108px;}
+}
+@media(min-width:681px) and (max-width:1099px){
+  .main{padding-left:18px;padding-right:18px;}
+  .tabs{top:var(--v9-header);padding-left:18px;padding-right:18px;}
+  .jv9-command{grid-template-columns:1fr;}
+}
+@media(max-width:680px){
+  :root{--v9-header:62px;}
+  header .header-inner{min-height:62px;}
+  header .title:after{display:none;}
+  .main{padding:0 13px 96px;}
+  .tabs{
+    top:62px;
+    bottom:0; top:auto; position:fixed;
+    left:0;right:0;max-width:none;
+    padding:7px max(8px,env(safe-area-inset-left)) calc(7px + env(safe-area-inset-bottom));
+    justify-content:space-around;
+    border-top:1px solid rgba(31,42,37,.08);
+    border-bottom:0;
+    background:rgba(248,246,241,.94)!important;
+  }
+  .tabs button{
+    min-width:0!important; flex:1!important;
+    padding:7px 3px!important; min-height:50px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+    font-size:9.5px!important;
+  }
+  .tabs button span:first-child{font-size:17px;}
+  .tabs button.active{box-shadow:none!important;background:rgba(47,143,104,.09)!important;}
+  .jv9-command,.jv9-density{grid-template-columns:1fr;}
+  .jv9-quick{grid-template-columns:repeat(2,1fr);}
+  .jv9-hero{padding:18px;border-radius:20px;}
+  .jv9-status{border-radius:20px;}
+  .jv9-now{font-size:27px;}
+  .jv9-actions button{flex:1;min-width:0;}
+  .fab{
+    bottom:calc(var(--v9-bottom) + env(safe-area-inset-bottom) + 8px)!important;
+    right:15px!important;
+    width:54px!important;height:54px!important;
+  }
+  .install-banner{margin-bottom:14px;}
+}
+@media(max-width:380px){
+  .jv9-quick{gap:7px;}
+  .jv9-quick button{padding:10px;}
+  .jv9-quick span{font-size:9.5px;}
+}
+@media(orientation:landscape) and (max-height:560px) and (max-width:900px){
+  .tabs{
+    position:fixed;left:0;top:0;bottom:0;right:auto;width:78px;
+    flex-direction:column;justify-content:center;
+    padding:8px 5px;
+    border-top:0;border-right:1px solid rgba(31,42,37,.08);
+  }
+  .tabs button{width:68px;flex:none!important;}
+  .main{margin-left:78px;padding-bottom:20px;}
+  header{margin-left:78px;}
+  .jv9-command{grid-template-columns:1.4fr .6fr;}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important;}
+}
+
+
+/* =========================================================
+   JARVIS V10 — DASHBOARD WIDGETS + MOBILE PRIMARY NAV
+   ========================================================= */
+.jv10-dashboard{
+  display:grid;
+  grid-template-columns:minmax(0,1.45fr) minmax(280px,.55fr);
+  gap:14px;
+  margin:0 0 18px;
+}
+.jv10-calendar,.jv10-weather{
+  background:var(--surface,#fff);
+  border:1px solid rgba(31,42,37,.07);
+  border-radius:22px;
+  padding:18px;
+  box-shadow:var(--v9-shadow,0 12px 35px rgba(22,34,30,.07));
+}
+.jv10-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;}
+.jv10-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;font-family:'IBM Plex Mono',monospace;}
+.jv10-context{font-size:10px;color:var(--ink-soft);}
+.jv10-cal-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.jv10-month{font-size:20px;font-weight:700;letter-spacing:-.03em;}
+.jv10-week{
+  font-family:'IBM Plex Mono',monospace;font-size:10px;
+  color:var(--line,#2f8f68);background:var(--line-soft,#dceee6);
+  padding:6px 9px;border-radius:9px;
+}
+.jv10-weekdays,.jv10-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+.jv10-weekdays div{
+  text-align:center;font:9px 'IBM Plex Mono',monospace;color:var(--ink-soft);
+  padding:4px 0;
+}
+.jv10-day{
+  min-height:38px;border-radius:10px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;position:relative;font-size:12px;
+}
+.jv10-day.muted{opacity:.35;}
+.jv10-day.today{background:var(--line,#2f8f68);color:#fff;font-weight:700;}
+.jv10-day .dot{width:4px;height:4px;border-radius:50%;background:var(--wood,#ad8352);position:absolute;bottom:5px;}
+.jv10-day.today .dot{background:#fff;}
+.jv10-cal-foot{
+  display:flex;align-items:center;justify-content:space-between;margin-top:12px;
+  padding-top:10px;border-top:1px solid var(--border,#e5e0d6);
+  font-size:10px;color:var(--ink-soft);
+}
+.jv10-weather-main{
+  min-height:170px;border-radius:18px;padding:18px;color:#fff;
+  background:linear-gradient(135deg,#294f61,#6d8790);
+  position:relative;overflow:hidden;
+}
+.jv10-weather-main:after{
+  content:"";position:absolute;width:140px;height:140px;border-radius:50%;
+  right:-40px;top:-50px;background:rgba(255,255,255,.12);
+}
+.jv10-weather-location{font-size:10px;opacity:.78;font-family:'IBM Plex Mono',monospace;}
+.jv10-temp{font-size:42px;font-weight:700;letter-spacing:-.06em;margin-top:12px;}
+.jv10-condition{font-size:13px;margin-top:1px;}
+.jv10-range{font:10px 'IBM Plex Mono',monospace;opacity:.75;margin-top:9px;}
+.jv10-forecast{display:flex;gap:7px;overflow:auto;margin-top:10px;padding-bottom:2px;}
+.jv10-fday{
+  min-width:55px;text-align:center;padding:8px 4px;border-radius:11px;
+  background:var(--surface-2,#f1eee7);font-size:9px;
+}
+.jv10-fday b{display:block;font-size:12px;margin-top:3px;}
+.jv10-fday span{display:block;color:var(--ink-soft);margin-top:2px;}
+
+@media(max-width:900px){
+  .jv10-dashboard{grid-template-columns:1fr;}
+}
+@media(max-width:680px){
+  .jv10-dashboard{gap:10px;}
+  .jv10-calendar,.jv10-weather{padding:14px;border-radius:18px;}
+  .jv10-day{min-height:34px;}
+  .jv10-temp{font-size:38px;}
+}
+/* Mobile: only the five principal sections in the bottom bar */
+@media(max-width:680px){
+  .tabs button:nth-child(n+6){display:none!important;}
+  .tabs button{font-size:9.5px!important;}
+}
+
 </style>
 
 <style id="jarvis-v4-layer">
@@ -370,6 +749,217 @@ main{grid-column:2;padding:34px 44px 70px;max-width:1280px;width:100%;margin:0 a
 .jv5-insight .dot{width:9px;height:9px;border-radius:50%;background:#16332C;margin-top:5px;flex:none}.jv5-insight.warn .dot{background:#B96B43}
 </style>
 
+
+<style id="jarvis-v6-upgrade">
+/* JARVIS V6 — Daily cockpit */
+.jv6-cockpit{margin:0 0 18px;display:grid;grid-template-columns:1.35fr .65fr;gap:14px}
+.jv6-card{border:1px solid rgba(18,61,50,.12);background:rgba(255,255,255,.78);border-radius:22px;padding:18px;box-shadow:0 14px 40px rgba(18,61,50,.07);backdrop-filter:blur(14px)}
+.jv6-card.dark{background:linear-gradient(145deg,#123d32,#0c2b24);color:#fff;border-color:rgba(255,255,255,.08)}
+.jv6-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.jv6-kicker{font:800 9px/1.2 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;opacity:.62}
+.jv6-title{font-size:17px;font-weight:850;letter-spacing:-.03em;margin-top:4px}
+.jv6-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.jv6-action{border:1px solid rgba(18,61,50,.11);background:#fff;border-radius:14px;padding:11px 10px;text-align:left;cursor:pointer;transition:.18s}
+.jv6-action:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(18,61,50,.09)}
+.jv6-action b{display:block;font-size:11px;color:#123d32}.jv6-action span{display:block;font-size:9px;color:#74817b;margin-top:3px}
+.jv6-now{font-size:13px;line-height:1.45}.jv6-now b{font-size:15px}.jv6-next{margin-top:9px;font-size:10px;opacity:.65}
+.jv6-meters{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.jv6-meter{padding:10px 11px;border-radius:14px;background:rgba(18,61,50,.055)}
+.jv6-meter small{display:block;font-size:8px;text-transform:uppercase;letter-spacing:.1em;color:#718078;font-weight:800}
+.jv6-meter strong{display:block;font-size:17px;color:#123d32;margin-top:3px}
+.jv6-progress{height:5px;background:rgba(18,61,50,.09);border-radius:9px;margin-top:6px;overflow:hidden}.jv6-progress i{display:block;height:100%;background:#b97852;border-radius:9px}
+.jv6-inbox{margin-top:12px;padding-top:11px;border-top:1px solid rgba(18,61,50,.09);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.jv6-badge{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 7px;border-radius:99px;background:#b97852;color:#fff;font:800 10px 'IBM Plex Mono',monospace}
+.jv6-mini-btn{border:0;border-radius:11px;padding:8px 10px;background:#123d32;color:#fff;font-size:9px;font-weight:800;cursor:pointer}
+.jv6-toast{position:fixed;left:50%;bottom:25px;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:200;background:#123d32;color:#fff;padding:11px 15px;border-radius:13px;box-shadow:0 15px 40px rgba(0,0,0,.2);font-size:11px;transition:.22s}.jv6-toast.show{opacity:1;transform:translate(-50%,0)}
+.jv6-drawer{position:fixed;inset:0;background:rgba(5,18,14,.48);backdrop-filter:blur(10px);z-index:180;display:none;align-items:flex-end;justify-content:center}.jv6-drawer.open{display:flex}.jv6-sheet{width:min(760px,100%);max-height:82vh;overflow:auto;background:#f8f4e9;border-radius:26px 26px 0 0;padding:20px;box-shadow:0 -25px 80px rgba(0,0,0,.25)}.jv6-sheet h2{margin:0;color:#123d32}.jv6-list{display:grid;gap:7px;margin-top:12px}.jv6-row{display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:13px;background:#fff;border:1px solid rgba(18,61,50,.09)}.jv6-row button{margin-left:auto;border:0;background:rgba(18,61,50,.07);color:#123d32;border-radius:9px;padding:6px 8px;font-size:9px;font-weight:800}
+@media(max-width:760px){.jv6-cockpit{grid-template-columns:1fr}.jv6-actions{grid-template-columns:1fr 1fr}.jv6-meters{grid-template-columns:1fr 1fr}.jv6-meters .jv6-meter:last-child{grid-column:1/-1}}
+</style>
+
+<style id="jarvis-v7-style">
+.jv7-shell{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(280px,.75fr);gap:12px;margin:12px 0}
+.jv7-card{background:rgba(255,255,255,.82);border:1px solid rgba(22,51,44,.1);border-radius:22px;padding:18px;box-shadow:0 10px 30px rgba(22,51,44,.05)}
+.jv7-card.dark{background:#16332c;color:#f4efe3;border-color:#16332c}
+.jv7-kicker{font:800 9px 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;opacity:.6}
+.jv7-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.jv7-title{font-size:22px;font-weight:850;letter-spacing:-.04em;margin-top:5px}.jv7-sub{font-size:11px;line-height:1.55;color:#718078;margin-top:7px}
+.jv7-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}.jv7-kpi{padding:12px;border-radius:16px;background:#f7f3e9;border:1px solid rgba(22,51,44,.08)}.jv7-kpi small{display:block;font:800 8px 'IBM Plex Mono';opacity:.55;text-transform:uppercase}.jv7-kpi strong{display:block;font-size:22px;margin-top:5px;letter-spacing:-.04em}.jv7-kpi span{font-size:9px;color:#718078}
+.jv7-progress{height:6px;background:rgba(255,255,255,.18);border-radius:9px;overflow:hidden;margin-top:10px}.jv7-progress i{display:block;height:100%;background:#d8cdb4;border-radius:9px}
+.jv7-now{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;margin-top:12px;border-radius:18px;background:rgba(255,255,255,.07)}.jv7-now b{font-size:13px}.jv7-now small{display:block;margin-top:4px;opacity:.65;font-size:10px}
+.jv7-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}.jv7-btn{border:1px solid rgba(22,51,44,.1);background:#fff;border-radius:15px;padding:12px;text-align:left;cursor:pointer}.jv7-btn b{display:block;font-size:11px}.jv7-btn span{display:block;color:#718078;font-size:9px;margin-top:4px}.jv7-btn:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(22,51,44,.08)}
+.jv7-list{display:grid;gap:7px;margin-top:12px}.jv7-item{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:11px 12px;border-radius:15px;background:#f8f5ed}.jv7-item b{font-size:11px}.jv7-item small{display:block;color:#718078;margin-top:3px;font-size:9px}.jv7-tag{font:800 8px 'IBM Plex Mono';padding:5px 7px;border-radius:8px;background:#e9e1cf;white-space:nowrap}.jv7-empty{padding:15px;text-align:center;color:#718078;font-size:10px}
+.jv7-quick{position:fixed;right:18px;bottom:86px;z-index:80;display:none;gap:7px;flex-direction:column}.jv7-quick button{border:0;border-radius:14px;padding:11px 13px;background:#16332c;color:#f4efe3;box-shadow:0 8px 25px rgba(0,0,0,.16);font-weight:800;font-size:10px}.jv7-float{position:fixed;right:18px;bottom:18px;z-index:81;border:0;border-radius:50%;width:54px;height:54px;background:#16332c;color:#f4efe3;font-size:20px;box-shadow:0 10px 30px rgba(0,0,0,.2)}
+.jv7-command{display:flex;gap:8px;margin-top:12px}.jv7-command input{flex:1;border:1px solid rgba(22,51,44,.12);border-radius:14px;padding:12px;background:#fff;outline:none}.jv7-command button{border:0;border-radius:14px;background:#16332c;color:#fff;padding:0 16px;font-weight:800}
+@media(max-width:850px){.jv7-shell{grid-template-columns:1fr}.jv7-grid{grid-template-columns:repeat(2,1fr)}.jv7-actions{grid-template-columns:repeat(2,1fr)}.jv7-title{font-size:19px}.jv7-quick{display:flex}}
+</style>
+
+<style id="jarvis-v8-responsive-design">
+/* =========================================================
+   JARVIS V8 — Responsive Navigation & Layout System
+   Mobile / Tablet / Desktop / Wide desktop
+   ========================================================= */
+:root{
+  --v8-sidebar: 248px;
+  --v8-nav-bg: rgba(248,246,239,.88);
+  --v8-nav-border: rgba(22,51,44,.10);
+  --v8-active: #16332c;
+}
+
+/* Base: desktop-first command center */
+body{overflow-x:hidden;}
+#app{max-width:none;min-height:100vh;padding-bottom:0;}
+.topbar{
+  position:fixed!important;left:0;top:0;bottom:0;width:var(--v8-sidebar);
+  box-sizing:border-box;padding:30px 20px 24px!important;
+  display:flex;flex-direction:column;align-items:stretch;
+  background:linear-gradient(180deg,rgba(248,246,239,.98),rgba(239,235,223,.96))!important;
+  border-right:1px solid var(--v8-nav-border)!important;border-bottom:0!important;
+  z-index:45;backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+}
+.topbar .brand{display:block;}
+.brand-mark{font-size:12px!important;letter-spacing:.25em!important;}
+.brand-date{margin-top:5px;}
+.title{font-size:25px!important;margin-top:34px!important;line-height:1.05;}
+#save-status{margin-top:10px!important;}
+nav.tabs{
+  position:fixed!important;left:0!important;top:170px!important;bottom:70px!important;
+  width:var(--v8-sidebar)!important;height:auto!important;max-width:none!important;
+  transform:none!important;box-sizing:border-box;
+  display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:5px!important;
+  padding:10px 14px!important;background:transparent!important;border:0!important;
+  overflow:visible!important;z-index:50;
+}
+nav.tabs button{
+  flex:none!important;width:100%!important;min-height:48px;
+  display:flex!important;flex-direction:row!important;justify-content:flex-start!important;align-items:center!important;
+  gap:13px!important;padding:10px 13px!important;border-radius:14px!important;
+  color:#66736d!important;font-size:12px!important;text-align:left!important;
+}
+nav.tabs button span:first-child{font-size:20px!important;width:24px;text-align:center;line-height:1;}
+nav.tabs button span:last-child{font-size:12px!important;font-weight:650;}
+nav.tabs button.active{background:var(--v8-active)!important;color:#fff!important;box-shadow:0 10px 25px rgba(16,42,36,.16)!important;}
+nav.tabs button:hover:not(.active){background:rgba(22,51,44,.06)!important;transform:none!important;}
+main{margin-left:var(--v8-sidebar);padding:30px 34px 70px!important;max-width:1400px;box-sizing:border-box;}
+#install-banner{max-width:900px;}
+.jv7-shell{max-width:1320px;}
+.jv3-fab{right:30px!important;bottom:28px!important;}
+.jv7-float{right:30px!important;bottom:28px!important;}
+
+/* Desktop hierarchy: content gets breathing room */
+.jv3-strip{max-width:1320px;}
+.jv3-command-row,.jv3-modules{max-width:1320px;}
+
+/* Large desktop: slightly more generous workspace */
+@media(min-width:1450px){
+  :root{--v8-sidebar:270px;}
+  main{padding-left:48px!important;padding-right:48px!important;}
+  .topbar{padding-left:24px!important;padding-right:24px!important;}
+  nav.tabs{padding-left:18px!important;padding-right:18px!important;}
+}
+
+/* Tablet: top navigation — horizontal, compact, content centered */
+@media (min-width:761px) and (max-width:1100px){
+  #app{max-width:100%;}
+  .topbar{
+    position:sticky!important;left:auto;top:0;bottom:auto;width:100%;height:auto;
+    padding:18px 22px 12px!important;display:block;
+    background:rgba(248,246,239,.90)!important;border-right:0!important;border-bottom:1px solid var(--v8-nav-border)!important;
+  }
+  .title{font-size:27px!important;margin-top:9px!important;}
+  #save-status{margin-top:4px!important;}
+  nav.tabs{
+    position:sticky!important;left:auto!important;top:0!important;bottom:auto!important;width:100%!important;
+    height:auto!important;display:flex!important;flex-direction:row!important;gap:7px!important;
+    padding:8px 18px!important;background:rgba(248,246,239,.92)!important;
+    border-bottom:1px solid var(--v8-nav-border)!important;overflow-x:auto!important;
+  }
+  nav.tabs button{
+    flex:0 0 auto!important;width:auto!important;min-height:42px!important;
+    justify-content:center!important;gap:7px!important;padding:9px 13px!important;
+    border-radius:13px!important;text-align:center!important;
+  }
+  nav.tabs button span:first-child{font-size:16px!important;width:auto;}
+  nav.tabs button span:last-child{font-size:10px!important;}
+  main{margin-left:0;padding:22px 24px 60px!important;}
+  .jv3-fab,.jv7-float{right:24px!important;bottom:24px!important;}
+}
+
+/* Mobile: thumb-friendly bottom navigation */
+@media(max-width:760px){
+  #app{padding-bottom:0;}
+  .topbar{
+    position:relative!important;left:auto;top:auto;bottom:auto;width:100%;height:auto;
+    padding:calc(env(safe-area-inset-top) + 15px) 16px 9px!important;
+    display:block;background:rgba(248,246,239,.82)!important;
+    border-right:0!important;border-bottom:1px solid rgba(22,51,44,.07)!important;
+  }
+  .brand-mark{font-size:10px!important;}
+  .title{font-size:25px!important;margin:8px 0 0!important;}
+  #save-status{margin-top:5px!important;}
+  nav.tabs{
+    position:fixed!important;left:0!important;right:0!important;top:auto!important;bottom:0!important;
+    width:100%!important;height:auto!important;max-width:none!important;transform:none!important;
+    display:grid!important;grid-template-columns:repeat(5,1fr)!important;gap:0!important;
+    padding:6px 5px calc(env(safe-area-inset-bottom) + 6px)!important;
+    background:rgba(248,246,239,.90)!important;
+    border-top:1px solid rgba(22,51,44,.11)!important;border-bottom:0!important;
+    box-shadow:0 -12px 30px rgba(22,51,44,.06);backdrop-filter:blur(24px)!important;
+  }
+  nav.tabs button{
+    min-width:0!important;width:auto!important;height:52px!important;min-height:0!important;
+    padding:6px 2px!important;border-radius:13px!important;
+    display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;
+    gap:3px!important;text-align:center!important;
+  }
+  nav.tabs button span:first-child{font-size:18px!important;width:auto!important;}
+  nav.tabs button span:last-child{font-size:8.5px!important;line-height:1!important;font-weight:650;}
+  /* On phones, keep the five daily destinations visible; Cerveau is opened through Command Center. */
+  nav.tabs button[data-view="cerveau"]{display:none!important;}
+  nav.tabs button.active{box-shadow:none!important;background:rgba(22,51,44,.10)!important;color:var(--v8-active)!important;}
+  main{margin-left:0!important;padding:14px 14px calc(100px + env(safe-area-inset-bottom))!important;}
+  .jv3-fab{right:16px!important;bottom:calc(86px + env(safe-area-inset-bottom))!important;}
+  .jv7-float{right:16px!important;bottom:calc(18px + env(safe-area-inset-bottom))!important;}
+  .jv7-quick{right:16px!important;bottom:calc(84px + env(safe-area-inset-bottom))!important;}
+  .jv7-shell{margin-top:8px;}
+  .jv3-strip{grid-template-columns:repeat(2,1fr)!important;}
+  .jv3-modules{grid-template-columns:1fr!important;}
+}
+
+/* Very small phones: simplify labels, preserve touch targets */
+@media(max-width:390px){
+  nav.tabs button span:last-child{font-size:8px!important;}
+  nav.tabs button{padding-left:1px!important;padding-right:1px!important;}
+  main{padding-left:11px!important;padding-right:11px!important;}
+  .title{font-size:23px!important;}
+}
+
+/* Landscape phones: use horizontal top rail instead of consuming vertical space */
+@media(max-width:900px) and (orientation:landscape){
+  nav.tabs{top:0!important;bottom:auto!important;position:sticky!important;grid-template-columns:none!important;display:flex!important;overflow-x:auto!important;}
+  nav.tabs button{flex:0 0 90px!important;height:44px!important;}
+  nav.tabs button[data-view="cerveau"]{display:flex!important;}
+  main{padding-bottom:30px!important;}
+}
+</style>
+
+<style id="jarvis-v11-layout-fix">
+/* V11 - Correctif d'affichage.
+   Cause : #app gardait une grille heritee (248px | 1fr). Depuis que la barre laterale est fixe,
+   le tableau de bord (calendrier/meteo) tombait dans la colonne de 248px, sous la barre laterale. */
+#app{display:block!important;grid-template-columns:none!important;max-width:none!important;}
+@media(min-width:1101px){
+  .main{margin-left:var(--v8-sidebar)!important;margin-right:0!important;max-width:1400px;box-sizing:border-box;padding-left:34px!important;padding-right:34px!important;}
+  #jv10-dashboard{padding-top:30px!important;}
+  main{width:auto!important;}
+}
+@media(min-width:1450px){
+  .main{padding-left:48px!important;padding-right:48px!important;}
+}
+@media(max-width:900px) and (orientation:landscape){
+  .main,header.topbar{margin-left:0!important;}
+}
+/* Ecran verrouille : le contenu est floute tant que le code n'est pas saisi */
+html.jv-locked #app,html.jv-locked .fab,html.jv-locked .jv3-fab,html.jv-locked .jv7-float{filter:blur(16px);pointer-events:none;user-select:none;}
+</style>
 </head>
 <body>
 <div id="app">
@@ -391,6 +981,93 @@ main{grid-column:2;padding:34px 44px 70px;max-width:1280px;width:100%;margin:0 a
     <button data-view="cerveau"><span>✦</span><span>Cerveau</span></button>
     <button data-view="pilotage"><span>◈</span><span>Pilotage</span></button>
   </nav>
+
+<section class="main jv10-dashboard" id="jv10-dashboard">
+  <div class="jv10-calendar">
+    <div class="jv10-head">
+      <div>
+        <div class="jv10-title">Calendrier</div>
+        <div class="jv10-context" id="jv10-date-label">Aujourd’hui</div>
+      </div>
+      <div class="jv10-week" id="jv10-week">S—</div>
+    </div>
+    <div class="jv10-cal-top">
+      <div class="jv10-month" id="jv10-month">—</div>
+      <button class="icon-btn" onclick="v10Today()">Aujourd’hui</button>
+    </div>
+    <div class="jv10-weekdays">
+      <div>L</div><div>M</div><div>M</div><div>J</div><div>V</div><div>S</div><div>D</div>
+    </div>
+    <div class="jv10-grid" id="jv10-calendar-grid"></div>
+    <div class="jv10-cal-foot">
+      <span id="jv10-events-count">0 événement</span>
+      <span>Numéro de semaine ISO</span>
+    </div>
+  </div>
+
+  <div class="jv10-weather">
+    <div class="jv10-head">
+      <div class="jv10-title">Météo</div>
+      <div class="jv10-context">Position actuelle</div>
+    </div>
+    <div class="jv10-weather-main">
+      <div class="jv10-weather-location" id="jv10-weather-location">Localisation</div>
+      <div class="jv10-temp" id="jv10-weather-temp">—°</div>
+      <div class="jv10-condition" id="jv10-weather-condition">Chargement…</div>
+      <div class="jv10-range" id="jv10-weather-range">—</div>
+    </div>
+    <div class="jv10-forecast" id="jv10-weather-forecast"></div>
+  </div>
+</section>
+
+<div class="main" id="v9-command-deck">
+  <section class="jv9-command">
+    <div class="jv9-hero">
+      <div class="jv9-kicker">JARVIS / CENTRE DE COMMANDE</div>
+      <div class="jv9-now" id="v9-now-title">Votre prochaine action.</div>
+      <div class="jv9-sub" id="v9-now-sub">JARVIS analyse votre journée et vous montre ce qui mérite votre attention maintenant.</div>
+      <div class="jv9-actions">
+        <button class="primary" onclick="v9StartFocus()">◉ Commencer</button>
+        <button onclick="v9Briefing()">✦ Briefing</button>
+        <button onclick="openCaptureModal('tache')">＋ Capturer</button>
+      </div>
+    </div>
+    <div class="jv9-status">
+      <div class="jv9-status-head">
+        <div>
+          <div class="jv9-status-title">État de la journée</div>
+          <div class="mono" style="font-size:10px;color:var(--ink-soft);margin-top:4px">Charge · priorité · retards</div>
+        </div>
+        <div class="jv9-score" id="v9-score">—</div>
+      </div>
+      <div class="jv9-mini-grid">
+        <div class="jv9-mini"><b id="v9-open">—</b><span>à traiter</span></div>
+        <div class="jv9-mini"><b id="v9-late">—</b><span>en retard</span></div>
+        <div class="jv9-mini"><b id="v9-high">—</b><span>priorités hautes</span></div>
+        <div class="jv9-mini"><b id="v9-projects">—</b><span>projets actifs</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="jv9-quick">
+    <button onclick="openCaptureModal('tache')"><strong>＋ Nouvelle tâche</strong><span>Capturer immédiatement</span></button>
+    <button onclick="openCaptureModal('projet')"><strong>▤ Nouveau projet</strong><span>Créer un cockpit</span></button>
+    <button onclick="jarvisFocus()"><strong>◉ Mode Focus</strong><span>Une seule chose à la fois</span></button>
+    <button onclick="v9Briefing()"><strong>✦ Briefing JARVIS</strong><span>Voir la situation complète</span></button>
+  </section>
+
+  <section class="jv9-density">
+    <div class="jv9-panel">
+      <h3>Radar d'attention</h3>
+      <div class="jv9-list" id="v9-radar"></div>
+    </div>
+    <div class="jv9-panel">
+      <h3>Prochaine séquence</h3>
+      <div class="jv9-list" id="v9-next"></div>
+    </div>
+  </section>
+</div>
+
 
   <button class="fab" id="fab" title="Saisie rapide">+</button>
 
@@ -477,9 +1154,21 @@ main{grid-column:2;padding:34px 44px 70px;max-width:1280px;width:100%;margin:0 a
 
     <!-- TACHES PRO -->
     <section class="view" id="view-pro">
-      <div class="add-row"><button class="add-btn" onclick="openCaptureModal('pro')">+ Ajouter</button></div>
-      <div class="filters" id="filters-pro"></div>
-      <div id="list-pro"></div>
+      <div class="segmented" style="margin-bottom:16px;">
+        <button class="active" id="pro-sub-taches" onclick="switchProSub('taches')">Tâches</button>
+        <button id="pro-sub-dossiers" onclick="switchProSub('dossiers')">Dossiers</button>
+      </div>
+
+      <div id="pro-sub-view-taches">
+        <div class="add-row"><button class="add-btn" onclick="openCaptureModal('pro')">+ Ajouter</button></div>
+        <div class="filters" id="filters-pro"></div>
+        <div id="list-pro"></div>
+      </div>
+
+      <div id="pro-sub-view-dossiers" style="display:none;">
+        <div class="add-row"><button class="add-btn" onclick="openDossierModal(null)">+ Ajouter un dossier</button></div>
+        <div id="list-dossiers"></div>
+      </div>
     </section>
 
     <!-- TACHES PERSO -->
@@ -525,7 +1214,6 @@ main{grid-column:2;padding:34px 44px 70px;max-width:1280px;width:100%;margin:0 a
 
 <div class="overlay" id="overlay"><div class="modal"><div class="modal-handle"></div><div id="modal-content"></div></div></div>
 
-<button class="jv3-fab" id="jv3-fab" title="Centre de commande">✦</button>
 <div class="jv3-modal" id="jv3-command-modal">
   <div class="jv3-modal-card">
     <div class="jv3-modal-top"><div><div class="v2-kicker">JARVIS CAPTURE · COMMAND CENTER</div><h2>Que dois-je prendre en charge ?</h2></div><button class="jv3-close" onclick="closeJarvisCommandCenter()">×</button></div>
@@ -543,7 +1231,7 @@ main{grid-column:2;padding:34px 44px 70px;max-width:1280px;width:100%;margin:0 a
 <div class="v2-focus-overlay" id="v2-focus"><div class="v2-focus-box"><div class="k">JARVIS FOCUS</div><h2 id="focus-title">Aucune tâche sélectionnée</h2><div class="v2-focus-timer" id="focus-timer">25:00</div><button onclick="toggleFocusTimer()" id="focus-toggle">Démarrer</button><button onclick="closeFocus()">Quitter le focus</button></div></div>
 <script>
 let DATA = {
-  tasksPro: [], tasksPerso: [], projects: [], ideas: [],
+  tasksPro: [], tasksPerso: [], projects: [], ideas: [], dossiers: [],
   settings: { workStart:'08:00', workEnd:'18:00', useLunch:true, lunchStart:'12:00', lunchEnd:'13:30', morningPersoMinutes:30, eveningPersoMinutes:120 }
 };
 let filterState = { pro: 'active', perso: 'active' };
@@ -563,6 +1251,8 @@ function setStatus(text, color){
   el.style.color = color || '';
 }
 
+const DEFAULT_DOSSIERS = []; // les dossiers vivent dans la base (protégée), plus dans le HTML public
+
 async function loadData(){
   try{
     setStatus('Chargement…', 'var(--banner-ink-soft)');
@@ -577,8 +1267,13 @@ async function loadData(){
     }
     const parsed = await res.json();
     if(parsed && Object.keys(parsed).length){
-      DATA = Object.assign({ tasksPro: [], tasksPerso: [], projects: [], ideas: [], settings:{} }, parsed);
+      DATA = Object.assign({ tasksPro: [], tasksPerso: [], projects: [], ideas: [], dossiers: [], settings:{} }, parsed);
       DATA.settings = Object.assign({ workStart:'08:00', workEnd:'18:00', useLunch:true, lunchStart:'12:00', lunchEnd:'13:30', morningPersoMinutes:30, eveningPersoMinutes:120 }, DATA.settings || {});
+      if(!DATA.dossiers) DATA.dossiers = [];
+    }
+    if(!DATA.dossiers || DATA.dossiers.length === 0){
+      DATA.dossiers = DEFAULT_DOSSIERS.slice();
+      saveData();
     }
     setStatus('Chargé', 'var(--banner-ink-soft)');
     setTimeout(()=>setStatus(''), 2000);
@@ -624,6 +1319,7 @@ function saveData(){
 }
 
 function showLoginGate(){
+  document.documentElement.classList.add('jv-locked');
   document.getElementById('modal-content').innerHTML = `
     <h3>JARVIS est protégé</h3>
     <div class="field">
@@ -640,9 +1336,11 @@ async function submitGate(){
   localStorage.setItem(GATE_KEY, val);
   const res = await fetch('/api/state', { headers: authHeaders() });
   if(res.status === 401){
+    localStorage.removeItem(GATE_KEY);
     document.getElementById('gate-error').style.display = 'block';
     return;
   }
+  document.documentElement.classList.remove('jv-locked');
   closeModal();
   loadData();
 }
@@ -722,11 +1420,18 @@ function renderCaptureModal(category){
       </div>
     </div>` : ''}
     ${showDue ? `
-    <div class="field"><label>Échéance (optionnel)</label><input id="c-due" type="date"></div>
+    <div class="field-row">
+      <div class="field"><label>Échéance (optionnel)</label><input id="c-due" type="date"></div>
+      <div class="field"><label>Heure fixe (optionnel)</label><input id="c-starttime" type="time"></div>
+    </div>
     ` : ''}
     ${category !== 'projet' ? `
     <div class="field"><label>Projet lié (optionnel)</label>
       <select id="c-project"><option value="">— aucun —</option>${DATA.projects.map(p => `<option value="${p.id}">${escapeHtml(p.name)}</option>`).join('')}</select>
+    </div>` : ''}
+    ${category === 'pro' ? `
+    <div class="field"><label>Dossier lié (optionnel)</label>
+      <select id="c-dossier"><option value="">— aucun —</option>${(DATA.dossiers||[]).map(d => `<option value="${d.id}">${escapeHtml(d.client)} — ${escapeHtml(d.devis||'')}</option>`).join('')}</select>
     </div>` : ''}
     <div class="modal-actions">
       <button class="btn ghost" onclick="closeModal()">Annuler</button>
@@ -747,11 +1452,15 @@ function submitCapture(category){
   const duration = durationEl ? (parseInt(durationEl.value,10) || 0) : 0;
   const dueEl = document.getElementById('c-due');
   const due = dueEl ? (dueEl.value || null) : null;
+  const startTimeEl = document.getElementById('c-starttime');
+  const startTime = startTimeEl ? (startTimeEl.value || null) : null;
   const projEl = document.getElementById('c-project');
   const linkedProjectId = projEl ? (projEl.value || null) : null;
+  const dossierEl = document.getElementById('c-dossier');
+  const linkedDossierId = dossierEl ? (dossierEl.value || null) : null;
 
   if(category === 'pro' || category === 'perso'){
-    const task = { id: uid(), title:text, done:false, due, priority:'normale', projectId:linkedProjectId, duration: duration||30, createdAt: Date.now() };
+    const task = { id: uid(), title:text, done:false, due, startTime, priority:'normale', projectId:linkedProjectId, dossierId: category==='pro'?linkedDossierId:null, duration: duration||30, createdAt: Date.now() };
     (category==='pro' ? DATA.tasksPro : DATA.tasksPerso).unshift(task);
   }else if(category === 'projet'){
     DATA.projects.unshift({ id: uid(), name:text, description:'', status:'en_cours', progress:0, estimateMinutes: duration||0, createdAt: Date.now() });
@@ -768,6 +1477,7 @@ const ICON_PRO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" str
 const ICON_PERSO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>';
 function taskCard(t, kind){
   const proj = DATA.projects.find(p => p.id === t.projectId);
+  const dossier = kind==='pro' ? (DATA.dossiers||[]).find(d => d.id === t.dossierId) : null;
   const late = isLate(t);
   return `
     <div class="card ${kind}${t.done ? ' done' : ''}" data-id="${t.id}">
@@ -777,9 +1487,11 @@ function taskCard(t, kind){
         <div class="card-title">${escapeHtml(t.title)}</div>
         <div class="card-meta">
           ${t.due ? `<span class="tag mono" style="${late ? 'color:var(--rust);background:var(--rust-soft);' : ''}">${late ? '⚠ ' : ''}${fmtDate(t.due)}</span>` : ''}
+          ${t.startTime ? `<span class="tag mono" style="color:var(--line);background:var(--line-soft);">🕐 ${t.startTime}</span>` : ''}
           <span class="tag prio-${t.priority}">${t.priority}</span>
           ${t.duration ? `<span class="tag duration">${fmtDuration(t.duration)}</span>` : ''}
           ${proj ? `<span class="tag mono">${escapeHtml(proj.name)}</span>` : ''}
+          ${dossier ? `<span class="tag mono" style="color:var(--wood);background:var(--wood-soft);">📁 ${escapeHtml(dossier.client)}</span>` : ''}
         </div>
       </div>
       <button class="icon-btn" onclick="deleteTask('${kind}','${t.id}')" title="Supprimer">✕</button>
@@ -814,11 +1526,162 @@ function renderTaskList(kind){
 }
 function setFilter(kind, key){ filterState[kind] = key; renderTaskList(kind); }
 
+// ---------- Dossiers (gestion de dossiers pro) ----------
+function switchProSub(which){
+  document.getElementById('pro-sub-taches').classList.toggle('active', which==='taches');
+  document.getElementById('pro-sub-dossiers').classList.toggle('active', which==='dossiers');
+  document.getElementById('pro-sub-view-taches').style.display = which==='taches' ? '' : 'none';
+  document.getElementById('pro-sub-view-dossiers').style.display = which==='dossiers' ? '' : 'none';
+  if(which === 'dossiers') renderDossiers();
+}
+function fmtEUR(n){
+  n = n || 0;
+  return n.toLocaleString('fr-FR', {maximumFractionDigits:0}) + ' €';
+}
+function dossierComputed(d){
+  const montantHT = d.montantHT || 0;
+  const montantFacture = d.montantFacture || 0;
+  const montantRegle = d.montantRegle || 0;
+  return {
+    etatFacturation: montantHT > 0 ? Math.round((montantFacture/montantHT)*100) : 0,
+    resteARegler: montantFacture - montantRegle,
+    resteAFacturer: montantHT - montantFacture
+  };
+}
+function dossierCard(d){
+  const c = dossierComputed(d);
+  return `<div class="project-card" onclick="openDossierModal('${d.id}')" style="cursor:pointer;">
+    <div class="project-top">
+      <div>
+        <div class="project-name">${escapeHtml(d.client||'(sans nom)')}</div>
+        <div class="project-desc">Devis ${escapeHtml(d.devis||'—')}${d.lot ? ' · '+escapeHtml(d.lot) : ''}${d.dateDevis ? ' · '+fmtDate(d.dateDevis) : ''}</div>
+      </div>
+      <span class="project-status" style="background:var(--line-soft); color:var(--line);">${escapeHtml(d.phase||'—')}</span>
+    </div>
+    <div class="project-bar-track"><div class="project-bar-fill" style="width:${d.progression||0}%"></div></div>
+    <div class="project-footer">
+      <span class="mono">${d.progression||0}% — HT ${fmtEUR(d.montantHT)}</span>
+      <span class="mono" style="color:${c.resteARegler>0?'var(--rust)':'var(--ink-soft)'};">reste dû ${fmtEUR(c.resteARegler)}</span>
+    </div>
+  </div>`;
+}
+function dossierTotals(){
+  const list = DATA.dossiers || [];
+  const sum = (fn) => list.reduce((acc,d)=>acc+(fn(d)||0),0);
+  const ht = sum(d=>d.montantHT), fact = sum(d=>d.montantFacture), regle = sum(d=>d.montantRegle);
+  return {
+    ht, fact, regle,
+    bois: sum(d=>d.boisM3), couv: sum(d=>d.couvertureM2), zing: sum(d=>d.zingMl),
+    resteARegler: fact - regle,
+    resteAFacturer: ht - fact
+  };
+}
+function renderDossiers(){
+  const container = document.getElementById('list-dossiers');
+  if(!container) return;
+  const list = (DATA.dossiers||[]).slice().sort((a,b)=> (a.createdAt||0)-(b.createdAt||0));
+  const t = dossierTotals();
+  const summary = list.length ? `
+    <div class="project-card" style="background:var(--banner-bg); color:var(--banner-ink);">
+      <div class="mono" style="font-size:11px; opacity:.7; margin-bottom:8px;">TOTAL — ${list.length} dossier${list.length>1?'s':''}</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px 14px;">
+        <div><div class="mono" style="font-size:10.5px; opacity:.65;">Montant HT</div><div style="font-size:16px; font-weight:600;">${fmtEUR(t.ht)}</div></div>
+        <div><div class="mono" style="font-size:10.5px; opacity:.65;">Facturé</div><div style="font-size:16px; font-weight:600;">${fmtEUR(t.fact)}</div></div>
+        <div><div class="mono" style="font-size:10.5px; opacity:.65;">Réglé</div><div style="font-size:16px; font-weight:600;">${fmtEUR(t.regle)}</div></div>
+        <div><div class="mono" style="font-size:10.5px; opacity:.65;">Reste à régler</div><div style="font-size:16px; font-weight:600;">${fmtEUR(t.resteARegler)}</div></div>
+        <div style="grid-column:1/-1;"><div class="mono" style="font-size:10.5px; opacity:.65;">Reste à facturer</div><div style="font-size:16px; font-weight:600;">${fmtEUR(t.resteAFacturer)}</div></div>
+      </div>
+    </div>` : '';
+  container.innerHTML = list.length
+    ? summary + list.map(dossierCard).join('')
+    : `<div class="empty">Aucun dossier pour l'instant.</div>`;
+}
+function openDossierModal(id){
+  const d = id ? (DATA.dossiers||[]).find(x=>x.id===id) : {
+    id:null, devis:'', client:'', dateDevis:'', montantHT:0, lot:'', boisM3:null, couvertureM2:null, zingMl:null,
+    phase:'', progression:0, montantFacture:0, montantRegle:0
+  };
+  if(!d){ return; }
+  const c = dossierComputed(d);
+  document.getElementById('modal-content').innerHTML = `
+    <h3>${id ? 'Modifier le dossier' : 'Nouveau dossier'}</h3>
+    <div class="field-row">
+      <div class="field"><label>Client</label><input id="d-client" value="${escapeHtml(d.client||'')}"></div>
+      <div class="field"><label>N° devis</label><input id="d-devis" value="${escapeHtml(d.devis||'')}"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Date de devis</label><input id="d-date" type="date" value="${d.dateDevis||''}"></div>
+      <div class="field"><label>Lot</label><input id="d-lot" value="${escapeHtml(d.lot||'')}" placeholder="C/C/B/Z/P"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Bois (m³)</label><input id="d-bois" type="number" step="0.1" value="${d.boisM3 ?? ''}"></div>
+      <div class="field"><label>Couverture (m²)</label><input id="d-couv" type="number" step="1" value="${d.couvertureM2 ?? ''}"></div>
+      <div class="field"><label>Zinguerie (ml)</label><input id="d-zing" type="number" step="1" value="${d.zingMl ?? ''}"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Phase du dossier</label>
+        <input id="d-phase" value="${escapeHtml(d.phase||'')}" list="d-phase-list" placeholder="Ex. Exe : Charpente">
+        <datalist id="d-phase-list">
+          <option value="Prendre contact"><option value="Attente maçonnerie"><option value="Attente relevé">
+          <option value="Prêt"><option value="Exe : Charpente"><option value="Exe : Zinguerie">
+          <option value="Exe: Bardage"><option value="Exe : Portes"><option value="Exe : Rideau"><option value="Terminé">
+        </datalist>
+      </div>
+      <div class="field"><label>Avancement (%)</label><input id="d-progression" type="number" min="0" max="100" value="${d.progression||0}"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Montant HT (€)</label><input id="d-montantht" type="number" step="1" value="${d.montantHT||0}"></div>
+      <div class="field"><label>Montant facturé (€)</label><input id="d-facture" type="number" step="1" value="${d.montantFacture||0}"></div>
+      <div class="field"><label>Montant réglé (€)</label><input id="d-regle" type="number" step="1" value="${d.montantRegle||0}"></div>
+    </div>
+    <div class="field" style="background:var(--surface-2); border-radius:8px; padding:10px 12px;">
+      <div class="mono" style="font-size:12px; color:var(--ink-soft);">Calculé automatiquement</div>
+      <div class="mono" style="font-size:13px; margin-top:4px;">Reste à régler : ${fmtEUR(c.resteARegler)} · Reste à facturer : ${fmtEUR(c.resteAFacturer)} · Facturation ${c.etatFacturation}%</div>
+    </div>
+    <div class="modal-actions">
+      ${id ? `<button class="btn danger" onclick="deleteDossier('${id}')">Supprimer</button>` : `<button class="btn ghost" onclick="closeModal()">Annuler</button>`}
+      <button class="btn" onclick="saveDossierModal(${id ? `'${id}'` : 'null'})">Enregistrer</button>
+    </div>`;
+  openModal();
+}
+function saveDossierModal(id){
+  const client = document.getElementById('d-client').value.trim();
+  if(!client){ closeModal(); return; }
+  const vals = {
+    client,
+    devis: document.getElementById('d-devis').value.trim(),
+    dateDevis: document.getElementById('d-date').value || null,
+    lot: document.getElementById('d-lot').value.trim(),
+    boisM3: document.getElementById('d-bois').value ? parseFloat(document.getElementById('d-bois').value) : null,
+    couvertureM2: document.getElementById('d-couv').value ? parseFloat(document.getElementById('d-couv').value) : null,
+    zingMl: document.getElementById('d-zing').value ? parseFloat(document.getElementById('d-zing').value) : null,
+    phase: document.getElementById('d-phase').value.trim(),
+    progression: Math.max(0, Math.min(100, parseInt(document.getElementById('d-progression').value,10) || 0)),
+    montantHT: parseFloat(document.getElementById('d-montantht').value) || 0,
+    montantFacture: parseFloat(document.getElementById('d-facture').value) || 0,
+    montantRegle: parseFloat(document.getElementById('d-regle').value) || 0,
+  };
+  if(!DATA.dossiers) DATA.dossiers = [];
+  if(id){
+    const d = DATA.dossiers.find(x=>x.id===id);
+    if(d) Object.assign(d, vals);
+  }else{
+    DATA.dossiers.unshift({ id: uid(), createdAt: Date.now(), ...vals });
+  }
+  saveData(); closeModal(); renderDossiers();
+}
+function deleteDossier(id){
+  DATA.dossiers = (DATA.dossiers||[]).filter(x=>x.id!==id);
+  DATA.tasksPro.forEach(t => { if(t.dossierId===id) t.dossierId = null; });
+  saveData(); closeModal(); renderDossiers();
+}
+
 function openTaskModal(kind, id){
   const list = kind === 'pro' ? DATA.tasksPro : DATA.tasksPerso;
   const t = list.find(x => x.id === id);
   if(!t) return;
   const projectOptions = DATA.projects.map(p => `<option value="${p.id}" ${t.projectId===p.id?'selected':''}>${escapeHtml(p.name)}</option>`).join('');
+  const dossierOptions = (DATA.dossiers||[]).map(d => `<option value="${d.id}" ${t.dossierId===d.id?'selected':''}>${escapeHtml(d.client)} — ${escapeHtml(d.devis||'')}</option>`).join('');
   document.getElementById('modal-content').innerHTML = `
     <h3>Modifier la tâche</h3>
     <div class="field"><label>Titre</label><input id="m-title" value="${escapeHtml(t.title)}"></div>
@@ -826,6 +1689,7 @@ function openTaskModal(kind, id){
       <div class="field"><label>Échéance</label><input id="m-due" type="date" value="${t.due || ''}"></div>
       <div class="field"><label>Durée (min)</label><input id="m-duration" type="number" min="0" step="5" value="${t.duration||30}"></div>
     </div>
+    <div class="field"><label>Heure fixe (optionnel)</label><input id="m-starttime" type="time" value="${t.startTime || ''}"></div>
     <div class="field"><label>Priorité</label>
       <select id="m-prio">
         <option value="basse" ${t.priority==='basse'?'selected':''}>Basse</option>
@@ -834,6 +1698,7 @@ function openTaskModal(kind, id){
       </select>
     </div>
     <div class="field"><label>Projet lié</label><select id="m-proj"><option value="">— aucun —</option>${projectOptions}</select></div>
+    ${kind==='pro' ? `<div class="field"><label>Dossier lié</label><select id="m-dossier"><option value="">— aucun —</option>${dossierOptions}</select></div>` : ''}
     <div class="modal-actions">
       <button class="btn ghost" onclick="closeModal()">Annuler</button>
       <button class="btn" onclick="saveTaskModal('${kind}','${id}')">Enregistrer</button>
@@ -846,10 +1711,13 @@ function saveTaskModal(kind, id){
   if(!t) return;
   t.title = document.getElementById('m-title').value.trim() || t.title;
   t.due = document.getElementById('m-due').value || null;
+  t.startTime = document.getElementById('m-starttime').value || null;
   t.duration = parseInt(document.getElementById('m-duration').value,10) || 30;
   t.priority = document.getElementById('m-prio').value;
   const projSel = document.getElementById('m-proj');
   if(projSel) t.projectId = projSel.value || null;
+  const dossierSel = document.getElementById('m-dossier');
+  if(dossierSel) t.dossierId = dossierSel.value || null;
   saveData(); closeModal(); renderAll();
 }
 
@@ -1121,7 +1989,7 @@ function importData(){
   try{
     const parsed = JSON.parse(raw);
     if(!confirm('Cela va remplacer toutes les données actuelles de JARVIS par celles importées. Continuer ?')) return;
-    DATA = Object.assign({ tasksPro: [], tasksPerso: [], projects: [], ideas: [], settings:{} }, parsed);
+    DATA = Object.assign({ tasksPro: [], tasksPerso: [], projects: [], ideas: [], dossiers: [], settings:{} }, parsed);
     DATA.settings = Object.assign({ workStart:'08:00', workEnd:'18:00', useLunch:true, lunchStart:'12:00', lunchEnd:'13:30', morningPersoMinutes:30, eveningPersoMinutes:120 }, DATA.settings || {});
     saveData();
     closeModal();
@@ -1150,52 +2018,91 @@ function buildPlan(){
   const workEnd = timeToMin(s.workEnd);
   const lunchStart = s.useLunch ? timeToMin(s.lunchStart) : null;
   const lunchEnd = s.useLunch ? timeToMin(s.lunchEnd) : null;
-  const morningStart = workStart - s.morningPersoMinutes;
-  const eveningEnd = workEnd + s.eveningPersoMinutes;
+  const dayStart = workStart - s.morningPersoMinutes;
+  const dayEnd = workEnd + s.eveningPersoMinutes;
 
   const prioRank = { haute:0, normale:1, basse:2 };
   const sortFn = (a,b) => (prioRank[a.priority]-prioRank[b.priority]) || (a.createdAt-b.createdAt);
 
-  const proToday = DATA.tasksPro.filter(t => !t.done && t.due === todayStr()).sort(sortFn);
-  const persoToday = DATA.tasksPerso.filter(t => !t.done && t.due === todayStr()).sort(sortFn);
+  const proToday = DATA.tasksPro.filter(t => !t.done && t.due === todayStr());
+  const persoToday = DATA.tasksPerso.filter(t => !t.done && t.due === todayStr());
 
-  function packWindow(cursor, capacity, queue, out){
-    let used = 0;
-    while(queue.length && used + (queue[0].duration||30) <= capacity){
-      const t = queue.shift();
-      const dur = t.duration || 30;
-      out.push({ task:t, start:cursor+used, end:cursor+used+dur });
-      used += dur;
-    }
-    return used;
+  // Créneaux fixés par l'utilisateur : ils sont posés tels quels, en priorité absolue.
+  const pinned = [];
+  const proQueue = [];
+  const persoQueue = [];
+  proToday.forEach(t => t.startTime ? pinned.push({task:t, kind:'pro', start:timeToMin(t.startTime), end:timeToMin(t.startTime)+(t.duration||30)}) : proQueue.push(t));
+  persoToday.forEach(t => t.startTime ? pinned.push({task:t, kind:'perso', start:timeToMin(t.startTime), end:timeToMin(t.startTime)+(t.duration||30)}) : persoQueue.push(t));
+  pinned.sort((a,b) => a.start - b.start);
+  proQueue.sort(sortFn);
+  persoQueue.sort(sortFn);
+
+  // Créneaux occupés : les tâches fixées + la pause déjeuner. On les fusionne s'ils se chevauchent.
+  let busy = pinned.map(p => ({start:p.start, end:p.end}));
+  if(s.useLunch) busy.push({start:lunchStart, end:lunchEnd});
+  busy.sort((a,b) => a.start - b.start);
+  const merged = [];
+  for(const b of busy){
+    if(merged.length && b.start <= merged[merged.length-1].end){
+      merged[merged.length-1].end = Math.max(merged[merged.length-1].end, b.end);
+    } else merged.push({...b});
   }
 
-  const proQueue = proToday.slice();
-  const proBlocks = [];
-  if(s.useLunch && lunchStart > workStart && lunchEnd < workEnd){
-    packWindow(workStart, lunchStart-workStart, proQueue, proBlocks);
-    packWindow(lunchEnd, workEnd-lunchEnd, proQueue, proBlocks);
-  }else{
-    packWindow(workStart, workEnd-workStart, proQueue, proBlocks);
+  // Segments libres sur toute la journée, une fois les créneaux occupés retirés.
+  const freeSegments = [];
+  let cursor = dayStart;
+  for(const b of merged){
+    if(b.start > cursor) freeSegments.push({start:cursor, end:Math.min(b.start, dayEnd)});
+    cursor = Math.max(cursor, b.end);
   }
+  if(cursor < dayEnd) freeSegments.push({start:cursor, end:dayEnd});
 
-  const persoQueue = persoToday.slice();
-  const morningBlocks = [];
-  packWindow(morningStart, s.morningPersoMinutes, persoQueue, morningBlocks);
-  const eveningBlocks = [];
-  packWindow(workEnd, s.eveningPersoMinutes, persoQueue, eveningBlocks);
+  // Chaque segment libre est redécoupé aux bornes travail/hors-travail, pour savoir
+  // quelle file (perso ou pro) peut s'y loger.
+  function splitByWorkBoundaries(seg){
+    const parts = [];
+    const clip = (a,b) => { if(b > a) parts.push({start:a, end:b}); };
+    clip(seg.start, Math.min(seg.end, workStart));
+    clip(Math.max(seg.start, workStart), Math.min(seg.end, workEnd));
+    clip(Math.max(seg.start, workEnd), seg.end);
+    return parts;
+  }
+  const morningFree = [], workFree = [], eveningFree = [];
+  freeSegments.forEach(seg => splitByWorkBoundaries(seg).forEach(part => {
+    if(part.end <= workStart) morningFree.push(part);
+    else if(part.start >= workEnd) eveningFree.push(part);
+    else workFree.push(part);
+  }));
+
+  const scheduled = pinned.map(p => ({...p, pinned:true}));
+  function packInto(segments, queue, kind){
+    segments.forEach(seg => {
+      let usedCursor = seg.start;
+      while(queue.length && usedCursor + (queue[0].duration||30) <= seg.end){
+        const t = queue.shift();
+        const dur = t.duration || 30;
+        scheduled.push({task:t, kind, start:usedCursor, end:usedCursor+dur, pinned:false});
+        usedCursor += dur;
+      }
+    });
+  }
+  packInto(morningFree, persoQueue, 'perso');
+  packInto(workFree, proQueue, 'pro');
+  packInto(eveningFree, persoQueue, 'perso');
+
+  scheduled.sort((a,b) => a.start - b.start);
 
   return {
-    morningBlocks, proBlocks, eveningBlocks,
+    scheduled,
     overflow: [...proQueue, ...persoQueue],
-    windows: { morningStart, workStart, lunchStart, lunchEnd, workEnd, eveningEnd, useLunch: s.useLunch }
+    windows: { dayStart, workStart, lunchStart, lunchEnd, workEnd, dayEnd, useLunch: s.useLunch }
   };
 }
 
-function planRow(block, kind){
+function planRow(block){
   return `<div class="plan-row">
-    <div class="plan-time mono">${minToTime(block.start)}–${minToTime(block.end)}</div>
-    ${taskCard(block.task, kind)}
+    <div class="plan-time mono">${minToTime(block.start)}–${minToTime(block.end)}${block.pinned ? ' 🕐' : ''}</div>
+    ${taskCard(block.task, block.kind)}
   </div>`;
 }
 
@@ -1203,20 +2110,11 @@ function renderPlanning(){
   const plan = buildPlan();
   let html = '';
 
-  html += `<div class="plan-zone-label"><span class="swatch" style="background:var(--moss);"></span>Avant le travail</div>`;
-  html += plan.morningBlocks.length
-    ? plan.morningBlocks.map(b => planRow(b,'perso')).join('')
-    : `<div class="empty">Pas de tâche perso programmée ce matin.</div>`;
-
-  html += `<div class="plan-zone-label"><span class="swatch" style="background:var(--wood);"></span>Travail (${DATA.settings.workStart}–${DATA.settings.workEnd}${DATA.settings.useLunch ? ', pause '+DATA.settings.lunchStart+'–'+DATA.settings.lunchEnd : ''})</div>`;
-  html += plan.proBlocks.length
-    ? plan.proBlocks.map(b => planRow(b,'pro')).join('')
-    : `<div class="empty">Aucune tâche pro avec échéance aujourd'hui.</div>`;
-
-  html += `<div class="plan-zone-label"><span class="swatch" style="background:var(--moss);"></span>Après le travail</div>`;
-  html += plan.eveningBlocks.length
-    ? plan.eveningBlocks.map(b => planRow(b,'perso')).join('')
-    : `<div class="empty">Pas de tâche perso programmée ce soir.</div>`;
+  if(plan.scheduled.length){
+    html += `<div class="group" style="background:transparent; box-shadow:none;">${plan.scheduled.map(b => planRow(b)).join('')}</div>`;
+  } else {
+    html += `<div class="empty">Aucune tâche avec échéance aujourd'hui à planifier.</div>`;
+  }
 
   if(plan.overflow.length){
     html += `<div class="overflow-box">
@@ -1262,12 +2160,13 @@ function renderAllCore(){
   renderTaskList('perso');
   renderProjects();
   renderIdeas();
+  renderDossiers();
 }
 
 // ---------- Modal helpers ----------
 function openModal(){ document.getElementById('overlay').classList.add('open'); }
 function closeModal(){ document.getElementById('overlay').classList.remove('open'); }
-document.getElementById('overlay').addEventListener('click', (e) => { if(e.target.id === 'overlay') closeModal(); });
+document.getElementById('overlay').addEventListener('click', (e) => { if(e.target.id === 'overlay' && !document.documentElement.classList.contains('jv-locked')) closeModal(); });
 
 function showInstallInstructions(){
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
@@ -1393,6 +2292,211 @@ setInterval(()=>{const el=document.getElementById('jv3-clock');if(el){const d=ne
 
 renderHeader();
 loadData();
+
+/* =========================================================
+   JARVIS V9 — PERSONAL OS LOGIC
+   ========================================================= */
+function v9Tasks(){
+  const source = (typeof state !== 'undefined' && state && Array.isArray(state.tasks)) ? state.tasks : [];
+  return source.filter(t => !t.done);
+}
+function v9Projects(){
+  const source = (typeof state !== 'undefined' && state && Array.isArray(state.projects)) ? state.projects : [];
+  return source.filter(p => String(p.status || 'en_cours').toLowerCase() !== 'termine');
+}
+function v9Priority(t){
+  const p = String(t.priority || t.prio || '').toLowerCase();
+  return p.includes('haut') || p.includes('high') ? 3 : p.includes('bas') || p.includes('low') ? 1 : 2;
+}
+function v9Date(t){
+  return t.date || t.due || t.deadline || t.startDate || '';
+}
+function v9IsLate(t){
+  const d = v9Date(t);
+  if(!d) return false;
+  const today = new Date(); today.setHours(0,0,0,0);
+  const x = new Date(d); x.setHours(0,0,0,0);
+  return x < today;
+}
+function v9Sort(a,b){
+  return (v9IsLate(b)-v9IsLate(a)) || (v9Priority(b)-v9Priority(a));
+}
+function v9Refresh(){
+  const tasks = v9Tasks(), projects = v9Projects();
+  const late = tasks.filter(v9IsLate), high = tasks.filter(t => v9Priority(t)===3);
+  const score = Math.max(0, Math.min(100, 100 - late.length*14 - Math.max(0,high.length-3)*5));
+  const open = document.getElementById('v9-open');
+  const lateEl = document.getElementById('v9-late');
+  const highEl = document.getElementById('v9-high');
+  const projEl = document.getElementById('v9-projects');
+  const scoreEl = document.getElementById('v9-score');
+  if(open) open.textContent=tasks.length;
+  if(lateEl) lateEl.textContent=late.length;
+  if(highEl) highEl.textContent=high.length;
+  if(projEl) projEl.textContent=projects.length;
+  if(scoreEl) scoreEl.textContent=score;
+
+  const radar = document.getElementById('v9-radar');
+  const next = document.getElementById('v9-next');
+  if(!radar || !next) return;
+
+  const radarItems = [...late,...high.filter(t=>!late.includes(t))].slice(0,5);
+  radar.innerHTML = radarItems.length ? radarItems.map(t => `
+    <div class="jv9-list-row" onclick="v9OpenTask(${JSON.stringify(t.id)})" style="cursor:pointer">
+      <span class="jv9-dot"></span>
+      <div class="jv9-list-main">
+        <b>${v9Esc(t.title || t.name || 'Tâche')}</b>
+        <span>${v9IsLate(t)?'En retard · ':''}${t.category || t.type || 'À traiter'}</span>
+      </div>
+      <span class="jv9-badge ${v9IsLate(t)?'alert':''}">${v9IsLate(t)?'RETARD':'HAUTE'}</span>
+    </div>`).join('') :
+    '<div class="empty">Aucun signal critique. JARVIS veille.</div>';
+
+  const nextItems = [...tasks].sort(v9Sort).slice(0,4);
+  next.innerHTML = nextItems.length ? nextItems.map(t => `
+    <div class="jv9-list-row">
+      <span class="jv9-dot"></span>
+      <div class="jv9-list-main">
+        <b>${v9Esc(t.title || t.name || 'Tâche')}</b>
+        <span>${v9Date(t) || 'À planifier'} · ${t.duration ? t.duration+' min' : 'durée libre'}</span>
+      </div>
+      <span class="jv9-badge">${v9Priority(t)===3?'P1':'NEXT'}</span>
+    </div>`).join('') :
+    '<div class="empty">Votre espace est calme.</div>';
+
+  const first = [...tasks].sort(v9Sort)[0];
+  const title = document.getElementById('v9-now-title');
+  const sub = document.getElementById('v9-now-sub');
+  if(first){
+    if(title) title.textContent = first.title || first.name || 'Votre prochaine action';
+    if(sub) sub.textContent = v9IsLate(first)
+      ? 'Cette action est en retard. JARVIS vous recommande de la traiter en premier.'
+      : 'Voici l’action la plus pertinente à traiter maintenant.';
+  } else {
+    if(title) title.textContent='Aucune urgence. Prenez de l’avance.';
+    if(sub) sub.textContent='JARVIS peut vous aider à planifier la prochaine séquence de votre journée.';
+  }
+}
+function v9Esc(v){
+  return String(v ?? '').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+}
+function v9OpenTask(id){
+  const task = v9Tasks().find(t => String(t.id)===String(id));
+  if(!task) return;
+  if(typeof openEditTask === 'function') openEditTask(task.id);
+}
+function v9StartFocus(){
+  const task = v9Tasks().sort(v9Sort)[0];
+  if(task && typeof jarvisFocus === 'function'){
+    jarvisFocus();
+  }else if(typeof openCaptureModal === 'function'){
+    openCaptureModal('tache');
+  }
+}
+function v9Briefing(){
+  const tasks=v9Tasks(), late=tasks.filter(v9IsLate), high=tasks.filter(t=>v9Priority(t)===3);
+  const msg = [
+    `JARVIS — BRIEFING`,
+    ``,
+    `${tasks.length} tâche(s) ouverte(s).`,
+    `${late.length} en retard.`,
+    `${high.length} priorité(s) haute(s).`,
+    `${v9Projects().length} projet(s) actif(s).`,
+    ``,
+    tasks.length ? `Prochaine action : ${tasks.sort(v9Sort)[0].title || tasks[0].name}` : `Aucune tâche urgente.`
+  ].join('\n');
+  alert(msg);
+}
+window.addEventListener('load',()=>setTimeout(v9Refresh,80));
+document.addEventListener('click',()=>setTimeout(v9Refresh,120));
+
+
+/* =========================================================
+   JARVIS V10 — CALENDAR + WEATHER
+   ========================================================= */
+(function(){
+  const months=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+  const shortDays=['dim.','lun.','mar.','mer.','jeu.','ven.','sam.'];
+  function isoWeek(date){
+    const d=new Date(Date.UTC(date.getFullYear(),date.getMonth(),date.getDate()));
+    const day=d.getUTCDay()||7;
+    d.setUTCDate(d.getUTCDate()+4-day);
+    const y=new Date(Date.UTC(d.getUTCFullYear(),0,1));
+    return Math.ceil((((d-y)/86400000)+1)/7);
+  }
+  function renderCalendar(){
+    const now=new Date();
+    const grid=document.getElementById('jv10-calendar-grid');
+    if(!grid)return;
+    document.getElementById('jv10-month').textContent=months[now.getMonth()]+' '+now.getFullYear();
+    document.getElementById('jv10-week').textContent='S'+String(isoWeek(now)).padStart(2,'0');
+    document.getElementById('jv10-date-label').textContent=
+      shortDays[now.getDay()]+' '+now.getDate()+' '+months[now.getMonth()];
+    const first=new Date(now.getFullYear(),now.getMonth(),1);
+    const start=(first.getDay()+6)%7;
+    const daysInMonth=new Date(now.getFullYear(),now.getMonth()+1,0).getDate();
+    const prevDays=new Date(now.getFullYear(),now.getMonth(),0).getDate();
+    const cells=[];
+    for(let i=0;i<42;i++){
+      const n=i-start+1;
+      let day=n, muted=false, date;
+      if(n<1){day=prevDays+n;muted=true;date=new Date(now.getFullYear(),now.getMonth()-1,day);}
+      else if(n>daysInMonth){day=n-daysInMonth;muted=true;date=new Date(now.getFullYear(),now.getMonth()+1,day);}
+      else date=new Date(now.getFullYear(),now.getMonth(),day);
+      const today=date.toDateString()===now.toDateString();
+      cells.push(`<div class="jv10-day ${muted?'muted':''} ${today?'today':''}"><span>${day}</span>${today?'<span class="dot"></span>':''}</div>`);
+    }
+    grid.innerHTML=cells.join('');
+    const taskCount=(typeof state!=='undefined'&&state.tasks)?state.tasks.filter(t=>!t.done&&v10SameDay(t.date,now)).length:0;
+    document.getElementById('jv10-events-count').textContent=`${taskCount} tâche${taskCount>1?'s':''} aujourd’hui`;
+  }
+  function v10SameDay(value,d){
+    if(!value)return false;
+    const x=new Date(value);
+    return !isNaN(x)&&x.toDateString()===d.toDateString();
+  }
+  window.v10Today=renderCalendar;
+
+  async function loadWeather(){
+    const temp=document.getElementById('jv10-weather-temp');
+    const cond=document.getElementById('jv10-weather-condition');
+    const loc=document.getElementById('jv10-weather-location');
+    const range=document.getElementById('jv10-weather-range');
+    const forecast=document.getElementById('jv10-weather-forecast');
+    if(!temp)return;
+    if(!navigator.geolocation){
+      loc.textContent='Localisation indisponible'; cond.textContent='Météo non disponible'; return;
+    }
+    navigator.geolocation.getCurrentPosition(async pos=>{
+      try{
+        const lat=pos.coords.latitude, lon=pos.coords.longitude;
+        const url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=5`;
+        const r=await fetch(url); const d=await r.json();
+        temp.textContent=Math.round(d.current.temperature_2m)+'°';
+        loc.textContent='Position actuelle';
+        cond.textContent=v10WeatherText(d.current.weather_code);
+        range.textContent=`Max ${Math.round(d.daily.temperature_2m_max[0])}° · Min ${Math.round(d.daily.temperature_2m_min[0])}°`;
+        const names=['Aujourd’hui','Demain','J+2','J+3','J+4'];
+        forecast.innerHTML=d.daily.time.map((_,i)=>`
+          <div class="jv10-fday"><span>${names[i]}</span><b>${Math.round(d.daily.temperature_2m_max[i])}°</b><span>${Math.round(d.daily.temperature_2m_min[i])}°</span></div>
+        `).join('');
+      }catch(e){
+        cond.textContent='Météo indisponible';
+        range.textContent='Vérifiez la connexion.';
+      }
+    },()=>{
+      loc.textContent='Localisation refusée';
+      cond.textContent='Activez la localisation';
+      range.textContent='pour afficher la météo locale';
+    },{enableHighAccuracy:false,maximumAge:600000,timeout:6000});
+  }
+  function v10WeatherText(code){
+    const map={0:'Ciel dégagé',1:'Principalement dégagé',2:'Partiellement nuageux',3:'Couvert',45:'Brouillard',48:'Brouillard givrant',51:'Bruine légère',53:'Bruine',55:'Bruine forte',61:'Pluie légère',63:'Pluie',65:'Forte pluie',71:'Neige légère',73:'Neige',75:'Forte neige',80:'Averses',81:'Averses',82:'Fortes averses',95:'Orage',96:'Orage avec grêle',99:'Orage avec grêle'};
+    return map[code]||'Conditions actuelles';
+  }
+  window.addEventListener('load',()=>{renderCalendar();loadWeather();});
+})();
+
 </script>
 
 <script id="jarvis-v4-engine">
@@ -1480,5 +2584,166 @@ loadData();
 })();
 
 </script>
+
+<script id="jarvis-v6-upgrade">
+(function(){
+  const esc = window.escapeHtml || (v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m])));
+  const pad=n=>String(n).padStart(2,'0');
+  const today=()=>{const d=new Date();return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`};
+  const allTasks=()=>[...(window.DATA?.tasksPro||[]).map(t=>({...t,_kind:'pro'})),...(window.DATA?.tasksPerso||[]).map(t=>({...t,_kind:'perso'}))];
+  const openTasks=()=>allTasks().filter(t=>!t.done);
+  const toast=(msg)=>{let e=document.getElementById('jv6-toast');if(!e){e=document.createElement('div');e.id='jv6-toast';e.className='jv6-toast';document.body.appendChild(e)}e.textContent=msg;e.classList.add('show');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('show'),2200)};
+  function ensure(){DATA.meta=DATA.meta||{};DATA.meta.v6=DATA.meta.v6||{};DATA.meta.v6.lastBriefing=DATA.meta.v6.lastBriefing||'';DATA.meta.v6.routines=DATA.meta.v6.routines||{}}
+  function isTodaySafe(t){try{return typeof isToday==='function'?isToday(t):t.due===today()}catch(e){return t.due===today()}}
+  function render(){
+    ensure();
+    const host=document.getElementById('view-dashboard'); if(!host)return;
+    let deck=document.getElementById('jv6-cockpit');
+    if(!deck){deck=document.createElement('div');deck.id='jv6-cockpit';deck.className='jv6-cockpit';const hero=host.querySelector('.v2-hero');hero?.after(deck)}
+    const tasks=openTasks(), td=tasks.filter(isTodaySafe), late=tasks.filter(t=>{try{return typeof isLate==='function'?isLate(t):(t.due && t.due<today())}catch(e){return false}});
+    const load=td.reduce((n,t)=>n+(Number(t.duration)||30),0);
+    const st=DATA.settings||{workStart:'08:00',workEnd:'18:00',useLunch:true,lunchStart:'12:00',lunchEnd:'13:30'};
+    const mins=x=>{const [h,m]=String(x||'00:00').split(':').map(Number);return h*60+m};
+    const cap=Math.max(1,(mins(st.workEnd)-mins(st.workStart))-(st.useLunch?(mins(st.lunchEnd)-mins(st.lunchStart)):0));
+    const pct=Math.min(100,Math.round(load/cap*100));
+    const projects=(DATA.projects||[]).filter(p=>p.status==='en_cours');
+    const now=new Date();
+    const hour=now.getHours();
+    const greeting=hour<12?'Matin':hour<18?'Après-midi':'Soir';
+    const priority=[...td].sort((a,b)=>({haute:0,normale:1,basse:2}[a.priority]??1)-({haute:0,normale:1,basse:2}[b.priority]??1))[0];
+    const next=td.filter(t=>t.due).sort((a,b)=>String(a.due).localeCompare(String(b.due)))[0];
+    deck.innerHTML=`
+      <div class="jv6-card">
+        <div class="jv6-head"><div><div class="jv6-kicker">JARVIS · DAILY COMMAND DECK</div><div class="jv6-title">${greeting}, voici ce qui mérite ton attention.</div></div><button class="jv6-mini-btn" onclick="JARVISV6.briefing()">Briefing</button></div>
+        <div class="jv6-actions">
+          <button class="jv6-action" onclick="openCaptureModal('pro')"><b>＋ Capturer</b><span>tâche pro</span></button>
+          <button class="jv6-action" onclick="openCaptureModal('perso')"><b>＋ Perso</b><span>tâche personnelle</span></button>
+          <button class="jv6-action" onclick="openCaptureModal('idee')"><b>✦ Idée</b><span>ne rien oublier</span></button>
+          <button class="jv6-action" onclick="JARVISV6.voice()"><b>◉ Vocal</b><span>dicter à JARVIS</span></button>
+        </div>
+        <div class="jv6-meters">
+          <div class="jv6-meter"><small>Charge</small><strong>${pct}%</strong><div class="jv6-progress"><i style="width:${pct}%"></i></div></div>
+          <div class="jv6-meter"><small>À faire</small><strong>${td.length}</strong><div style="font-size:8px;color:#718078">${late.length} en retard</div></div>
+          <div class="jv6-meter"><small>Projets</small><strong>${projects.length}</strong><div style="font-size:8px;color:#718078">actifs</div></div>
+        </div>
+        <div class="jv6-inbox"><span><b>Prochaine action :</b> ${esc(priority?.title||'Aucune priorité détectée')}</span><button class="jv6-mini-btn" onclick="JARVISV6.focus()">Focus</button></div>
+      </div>
+      <div class="jv6-card dark">
+        <div class="jv6-kicker">RADAR</div>
+        <div class="jv6-title" style="color:#fff">JARVIS surveille.</div>
+        <div class="jv6-now"><b>${late.length?`⚠ ${late.length} élément${late.length>1?'s':''} en retard`:'✓ Aucun retard critique'}</b><div class="jv6-next">${next?`Prochain : ${esc(next.title)}`:'Ton agenda est libre.'}</div></div>
+        <div class="jv6-next" style="margin-top:18px">Portefeuille : ${projects.length} projet${projects.length>1?'s':''} actif${projects.length>1?'s':''} · ${load} min planifiées aujourd’hui.</div>
+        <button class="jv6-mini-btn" style="margin-top:15px;background:#f0e7d5;color:#123d32" onclick="JARVISV6.openInbox()">Voir les alertes</button>
+      </div>`;
+  }
+  function briefing(){
+    ensure();
+    const tasks=openTasks().filter(isTodaySafe).sort((a,b)=>({haute:0,normale:1,basse:2}[a.priority]??1)-({haute:0,normale:1,basse:2}[b.priority]??1));
+    const late=openTasks().filter(t=>{try{return typeof isLate==='function'?isLate(t):(t.due&&t.due<today())}catch(e){return false}});
+    openSheet('Briefing JARVIS',`
+      <div class="jv6-row"><div>🎯 <b>Priorité</b><br><small>${esc(tasks[0]?.title||'Aucune priorité identifiée')}</small></div></div>
+      <div class="jv6-row"><div>📅 <b>Aujourd’hui</b><br><small>${tasks.length} tâche${tasks.length>1?'s':''} planifiée${tasks.length>1?'s':''}</small></div></div>
+      <div class="jv6-row"><div>⚠ <b>Retards</b><br><small>${late.length?late.map(t=>esc(t.title)).join(' · '):'Aucun retard détecté'}</small></div></div>
+      <div class="jv6-row"><div>🧠 <b>Consigne</b><br><small>Protège d’abord la priorité, puis garde une marge pour les imprévus.</small></div></div>`);
+  }
+  function openInbox(){
+    const late=openTasks().filter(t=>{try{return typeof isLate==='function'?isLate(t):(t.due&&t.due<today())}catch(e){return false}});
+    const due=openTasks().filter(t=>isTodaySafe(t));
+    const items=[...late.map(t=>({t,label:'En retard'})),...due.filter(t=>!late.includes(t)).slice(0,8).map(t=>({t,label:'Aujourd’hui'}))];
+    openSheet('Radar & alertes',items.length?items.map(({t,label})=>`<div class="jv6-row"><div><b>${esc(t.title)}</b><br><small>${label} · ${t.due||'sans échéance'}</small></div><button onclick="JARVISV6.focusTask('${esc(t.id||'')}')">Focus</button></div>`).join(''):'<div class="jv6-row">✓ Rien à signaler.</div>');
+  }
+  function openSheet(title,body){
+    let d=document.getElementById('jv6-drawer');
+    if(!d){d=document.createElement('div');d.id='jv6-drawer';d.className='jv6-drawer';d.innerHTML='<div class="jv6-sheet"><div class="jv6-head"><h2></h2><button class="jv6-mini-btn" onclick="JARVISV6.closeSheet()">Fermer</button></div><div class="jv6-list"></div></div>';d.onclick=e=>{if(e.target===d)d.classList.remove('open')};document.body.appendChild(d)}
+    d.querySelector('h2').textContent=title;d.querySelector('.jv6-list').innerHTML=body;d.classList.add('open');
+  }
+  function closeSheet(){document.getElementById('jv6-drawer')?.classList.remove('open')}
+  function focus(){
+    if(typeof jarvisFocus==='function')jarvisFocus(); else toast('Mode Focus indisponible');
+  }
+  function focusTask(id){
+    const t=openTasks().find(x=>x.id===id);closeSheet();if(t&&typeof jarvisFocus==='function'){window.jarvisFocusTask=t;jarvisFocus()}else focus();
+  }
+  function voice(){
+    const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+    if(!SR){toast('La dictée vocale n’est pas disponible sur cet appareil.');return}
+    const r=new SR();r.lang='fr-FR';r.interimResults=false;r.maxAlternatives=1;
+    r.onstart=()=>toast('JARVIS écoute…');r.onresult=e=>{const text=e.results[0][0].transcript;const input=document.getElementById('jarvis-command');if(input){input.value=text;input.focus()}toast('Commande capturée — valide pour exécuter.')};r.onerror=()=>toast('Je n’ai pas compris.');r.start();
+  }
+  function commandShortcuts(){
+    const input=document.getElementById('jarvis-command');if(!input)return;
+    input.placeholder='Ex. : ajoute une tâche pro demain, ouvre mes projets, lance le focus…';
+  }
+  window.JARVISV6={briefing,openInbox,closeSheet,focus,focusTask,voice,render};
+  const base=window.renderAll;
+  if(typeof base==='function')window.renderAll=function(){base();setTimeout(render,0)};
+  document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{render();commandShortcuts()},250));
+  setTimeout(render,900);
+  setInterval(()=>{if(document.getElementById('view-dashboard')?.classList.contains('active'))render()},15000);
+})();
+</script>
+
+<script id="jarvis-v7-engine">
+(function(){
+ const esc=window.escapeHtml||(v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m])));
+ const pad=n=>String(n).padStart(2,'0');
+ const today=()=>{const d=new Date();return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`};
+ const tasks=()=>[...(DATA?.tasksPro||[]).map(t=>({...t,_kind:'pro'})),...(DATA?.tasksPerso||[]).map(t=>({...t,_kind:'perso'}))];
+ const open=()=>tasks().filter(t=>!t.done);
+ const isTodaySafe=t=>{try{return typeof isToday==='function'?isToday(t):t.due===today()}catch(e){return t.due===today()}};
+ const isLateSafe=t=>{try{return typeof isLate==='function'?isLate(t):!!(t.due&&t.due<today())}catch(e){return !!(t.due&&t.due<today())}};
+ const mins=x=>{const [h,m]=String(x||'00:00').split(':').map(Number);return h*60+m};
+ const cap=()=>{const s=DATA.settings||{};return Math.max(1,(mins(s.workEnd||'18:00')-mins(s.workStart||'08:00'))-(s.useLunch?(mins(s.lunchEnd||'13:30')-mins(s.lunchStart||'12:00')):0))};
+ const priorityRank={haute:0,normale:1,basse:2};
+ function toast(msg){let e=document.getElementById('jv7-toast');if(!e){e=document.createElement('div');e.id='jv7-toast';e.className='jv6-toast';document.body.appendChild(e)}e.textContent=msg;e.classList.add('show');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('show'),2400)}
+ function state(){const all=open(),td=all.filter(isTodaySafe),late=all.filter(isLateSafe),load=td.reduce((n,t)=>n+(Number(t.duration)||30),0);const projects=(DATA.projects||[]).filter(p=>p.status==='en_cours');const high=all.filter(t=>t.priority==='haute').length;let score=100;score-=Math.min(35,late.length*12);score-=Math.max(0,Math.round((load/cap()*100-80)*.35));score-=Math.min(15,high>5?(high-5)*3:0);return {all,td,late,load,projects,high,score:Math.max(0,Math.min(100,score))}}
+ function nextTask(q){return [...q.td].sort((a,b)=>(priorityRank[a.priority]??1)-(priorityRank[b.priority]??1)||String(a.due||'99').localeCompare(String(b.due||'99')))[0]||q.late.sort((a,b)=>(priorityRank[a.priority]??1)-(priorityRank[b.priority]??1))[0]}
+ function render(){
+   const host=document.getElementById('view-dashboard');if(!host)return;let shell=document.getElementById('jv7-shell');if(!shell){shell=document.createElement('div');shell.id='jv7-shell';shell.className='jv7-shell';const anchor=document.getElementById('jv6-cockpit')||host.querySelector('.v2-hero');anchor?.after(shell)}
+   const q=state(),next=nextTask(q),now=new Date(),h=now.getHours(),hello=h<12?'Bonjour':h<18?'Bon après-midi':'Bonsoir';
+   const pct=Math.min(100,Math.round(q.load/cap()*100));
+   shell.innerHTML=`
+    <div class="jv7-card">
+      <div class="jv7-head"><div><div class="jv7-kicker">JARVIS V7 · SECOND BRAIN</div><div class="jv7-title">${hello}. Je garde le système sous contrôle.</div><div class="jv7-sub">Une seule question : <b>qu’est-ce qui mérite ton attention maintenant ?</b></div></div><button class="jv6-mini-btn" onclick="JARVISV7.briefing()">Briefing</button></div>
+      <div class="jv7-grid">
+       <div class="jv7-kpi"><small>État</small><strong>${q.score}</strong><span>/100 · système</span></div>
+       <div class="jv7-kpi"><small>Aujourd’hui</small><strong>${q.td.length}</strong><span>${q.late.length} retard${q.late.length>1?'s':''}</span></div>
+       <div class="jv7-kpi"><small>Charge</small><strong>${pct}%</strong><span>${q.load} min planifiées</span></div>
+       <div class="jv7-kpi"><small>Projets</small><strong>${q.projects.length}</strong><span>actifs</span></div>
+      </div>
+      <div class="jv7-command"><input id="jv7-command" placeholder="Dis-moi quoi faire… ex. ajoute une tâche demain à 9h" onkeydown="if(event.key==='Enter')JARVISV7.command()"><button onclick="JARVISV7.command()">OK</button></div>
+      <div class="jv7-now"><div><b>${next?esc(next.title):'Aucune action urgente.'}</b><small>${next?(next._kind==='pro'?'PRO':'PERSO')+' · '+(next.duration||30)+' min · '+(next.due||'sans date'):'Profite de l’avance pour capturer ou planifier.'}</small></div><button class="jv6-mini-btn" onclick="JARVISV7.focus()">Focus</button></div>
+      <div class="jv7-actions">
+       <button class="jv7-btn" onclick="openCaptureModal('pro')"><b>＋ Tâche pro</b><span>Capturer en 5 secondes</span></button>
+       <button class="jv7-btn" onclick="openCaptureModal('perso')"><b>＋ Tâche perso</b><span>Garder la tête libre</span></button>
+       <button class="jv7-btn" onclick="openCaptureModal('idee')"><b>✦ Idée</b><span>Ne rien perdre</span></button>
+       <button class="jv7-btn" onclick="JARVISV7.voice()"><b>◉ Dictée</b><span>Parler plutôt qu’écrire</span></button>
+      </div>
+    </div>
+    <div class="jv7-card dark">
+      <div class="jv7-kicker">JARVIS RADAR</div><div class="jv7-title" style="color:#fff">Je surveille pour toi.</div>
+      <div class="jv7-list">${radar(q)}</div>
+      <button class="jv6-mini-btn" style="margin-top:12px;background:#f0e7d5;color:#16332c" onclick="JARVISV7.inbox()">Ouvrir le radar complet</button>
+    </div>`;
+ }
+ function radar(q){let a=[];if(q.late.length)a.push(`<div class="jv7-item"><div><b>⚠ ${q.late.length} retard${q.late.length>1?'s':''}</b><small>${esc(q.late.slice(0,2).map(t=>t.title).join(' · '))}</small></div><span class="jv7-tag">ACTION</span></div>`);if(q.load/cap()>1)a.push(`<div class="jv7-item"><div><b>Journée surchargée</b><small>${q.load} min pour ${cap()} min disponibles.</small></div><span class="jv7-tag">ARBITRAGE</span></div>`);if(q.high)a.push(`<div class="jv7-item"><div><b>${q.high} priorité${q.high>1?'s':''} haute${q.high>1?'s':''}</b><small>Évite de toutes les traiter en même temps.</small></div><span class="jv7-tag">FOCUS</span></div>`);if(!a.length)a.push(`<div class="jv7-item"><div><b>✓ Rien de critique</b><small>Le système ne détecte pas de point bloquant.</small></div><span class="jv7-tag">OK</span></div>`);return a.join('')}
+ function briefing(){const q=state(),n=nextTask(q);openSheet('Briefing JARVIS V7',`<div class="jv7-list"><div class="jv7-item"><div><b>🎯 Maintenant</b><small>${esc(n?.title||'Aucune action prioritaire')}</small></div></div><div class="jv7-item"><div><b>📅 Aujourd’hui</b><small>${q.td.length} tâche${q.td.length>1?'s':''} · ${q.load} min</small></div></div><div class="jv7-item"><div><b>⚠ À arbitrer</b><small>${q.late.length?esc(q.late.map(t=>t.title).join(' · ')):'Rien de critique'}</small></div></div><div class="jv7-item"><div><b>◈ Portefeuille</b><small>${q.projects.length} projet${q.projects.length>1?'s':''} actif${q.projects.length>1?'s':''}</small></div></div></div>`)}
+ function inbox(){const q=state();const items=[...q.late.map(t=>({t,l:'RETARD'})),...q.td.filter(t=>!q.late.includes(t)).map(t=>({t,l:'AUJOURD’HUI'}))];openSheet('Radar complet',items.length?items.map(x=>`<div class="jv7-item"><div><b>${esc(x.t.title)}</b><small>${x.l} · ${x.t.due||'sans échéance'} · ${x.t._kind==='pro'?'PRO':'PERSO'}</small></div><button class="jv6-mini-btn" onclick="JARVISV7.focusTask('${String(x.t.id||'').replace(/'/g,'')}')">Focus</button></div>`).join(''):'<div class="jv7-empty">✓ Rien à signaler.</div>')}
+ function openSheet(title,body){let d=document.getElementById('jv7-sheet');if(!d){d=document.createElement('div');d.id='jv7-sheet';d.className='jv6-drawer';d.innerHTML='<div class="jv6-sheet"><div class="jv7-head"><h2></h2><button class="jv6-mini-btn" onclick="JARVISV7.closeSheet()">Fermer</button></div><div class="jv7-list"></div></div>';d.onclick=e=>{if(e.target===d)d.classList.remove('open')};document.body.appendChild(d)}d.querySelector('h2').textContent=title;d.querySelector('.jv7-list').innerHTML=body;d.classList.add('open')}
+ function closeSheet(){document.getElementById('jv7-sheet')?.classList.remove('open')}
+ function focus(){if(typeof jarvisFocus==='function')jarvisFocus();else toast('Mode Focus indisponible')}
+ function focusTask(id){const t=open().find(x=>String(x.id)===String(id));closeSheet();if(t){window.jarvisFocusTask=t;focus()}}
+ function voice(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){toast('Dictée vocale indisponible ici.');return}const r=new SR();r.lang='fr-FR';r.interimResults=false;r.maxAlternatives=1;r.onstart=()=>toast('JARVIS écoute…');r.onresult=e=>{const text=e.results[0][0].transcript;const i=document.getElementById('jv7-command')||document.getElementById('jarvis-command');if(i){i.value=text;i.focus()}toast('Commande capturée — valide pour exécuter.');};r.onerror=()=>toast('Je n’ai pas compris.');r.start()}
+ function command(){const i=document.getElementById('jv7-command'),v=(i?.value||'').trim();if(!v)return;const base=document.getElementById('jarvis-command');if(base){base.value=v;typeof jarvisCommand==='function'&&jarvisCommand()}else toast('Commande indisponible');i.value=''}
+ function boot(){
+   let f=document.getElementById('jv7-float');if(!f){f=document.createElement('button');f.id='jv7-float';f.className='jv7-float';f.textContent='✦';f.title='JARVIS';f.onclick=()=>{const c=document.getElementById('jv3-command-modal');c?.classList.add('open');setTimeout(()=>document.getElementById('jv3-command-input')?.focus(),50)};document.body.appendChild(f)}
+   const base=window.renderAll;if(typeof base==='function'&&!base.__v7){window.renderAll=function(){base();setTimeout(render,0)};window.renderAll.__v7=true}
+   setTimeout(render,500);setInterval(()=>{if(document.getElementById('view-dashboard')?.classList.contains('active'))render()},12000)
+ }
+ window.JARVISV7={render,briefing,inbox,closeSheet,focus,focusTask,voice,command};
+ document.addEventListener('DOMContentLoaded',boot);setTimeout(boot,700);
+})();
+</script>
+
 </body>
 </html>
